@@ -1,15 +1,23 @@
-use linfa_trees::DecisionTree;
-use linfa::prelude::*;
-use linfa_datasets;
+use polars::prelude::*;
+use linfa_preprocessing::*;
+
 
 fn main() {
-    println!("Hello, world!");
-    // Load the dataset
-    let dataset = linfa_datasets::iris();
-    // Fit the tree
-    let tree = DecisionTree::params().fit(&dataset).unwrap();
-    // Get accuracy on training set
-    let accuracy = tree.predict(&dataset).confusion_matrix(&dataset).unwrap().accuracy();
+    let _df = CsvReader::from_path("data/train_data.csv").unwrap().finish().unwrap();
+    let _df = _df.select(["snippet", "language"]).unwrap();
 
-    println!("{}", accuracy);
+    // println!("{}", _df.head(Some(3)));
+
+    // This doesn't work, because to_ndarray doesn't convert strings.
+    println!("{:?}", _df.to_ndarray::<Float64Type>(Default::default()).unwrap());
+
+    // let x_train_counts = CountVectorizer::params()
+    //     .n_gram_range(1,1)
+    //     .fit(&_df.select(["snippet"])
+    //         .unwrap()
+    //         .to_ndarray::<Float64Type>(Default::default())
+    //         .unwrap())
+    //     .unwrap();
+    //     // .transform(&_df.select(["snippet"]).unwrap());
+    // println!("{}", x_train_counts.head(Some(3)));
 }

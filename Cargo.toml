@@ -7,5 +7,7 @@ edition = "2021"
 
 [dependencies]
 linfa = "0.6.1"
-linfa-datasets = {version = "0.6.1", features = ["iris"]}
-linfa-trees = "0.6.1"
+polars = {version = "0.33.2", features=["lazy"]}
+polars-core = {version = "0.33.2", features = ["ndarray"]}
+polars-io = "0.33.2"
+linfa-preprocessing = "0.6.1"
