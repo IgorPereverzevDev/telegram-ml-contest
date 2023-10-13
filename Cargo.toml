@@ -1,0 +1,11 @@
+[package]
+name = "telegram-ml-contest"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+linfa = "0.6.1"
+linfa-datasets = {version = "0.6.1", features = ["iris"]}
+linfa-trees = "0.6.1"
