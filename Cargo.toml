@@ -7,9 +7,9 @@ edition = "2021"
 
 [dependencies]
 linfa = "0.6.1"
-polars = {version = "0.33.2", features=["lazy"]}
-polars-core = {version = "0.33.2", features = ["ndarray"]}
-polars-io = "0.33.2"
-linfa-preprocessing = "0.6.1"
-ndarray = "0.15.6"
 linfa-bayes = "0.6.1"
+linfa-preprocessing = "0.6.1"
+polars = {version = "0.33.2", features=["lazy"]}
+polars-io = "0.33.2"
+polars-core = {version = "0.33.2", features = ["ndarray"]}
+ndarray = "0.15.6"

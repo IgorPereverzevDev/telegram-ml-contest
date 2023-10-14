@@ -1,7 +1,6 @@
 use linfa::*;
 use linfa_bayes::*;
 use linfa::traits::*;
-use linfa::metrics::*;
 use linfa_preprocessing::*;
 use ndarray::*;
 use polars::prelude::*;
@@ -14,12 +13,27 @@ fn main() {
         .finish()
         .unwrap();
     // Selecting ["snippet", "language"] columns
-    let df = df.select(["snippet", "language"])
+    let df = df
+        .select(["snippet", "language"])
         .unwrap();
-    println!("Dataframe shape and sample:\n {:?}.", df.head(Some(1)));
+    // println!("Dataframe shape and sample:\n {:?}.", df.head(Some(1)));
+
+    // Labels mapping data reading
+    let labels_vector : Vec<String> = CsvReader::from_path("data/labels.csv")
+        .unwrap()
+        .finish()
+        .unwrap()
+        .column("language")
+        .unwrap()
+        .utf8()
+        .unwrap()
+        .into_iter()
+        .map(|opt_s| opt_s.unwrap_or_default().to_string())
+        .collect();
 
     // Get vector of snippet column
-    let snippets: Vec<String> = df.column("snippet")
+    let snippets: Vec<String> = df
+        .column("snippet")
         .unwrap()
         .utf8()
         .unwrap()
@@ -48,17 +62,33 @@ fn main() {
         // .document_frequency(2.0, 10000.0)
         .fit(&snippets_array)
         .unwrap();
-    println!("Vocabulary entries: {}.", vectorizer.nentries());
+    // println!("Vocabulary entries: {}.", vectorizer.nentries());
     // Snippets array to TF-IDF matrix transformation
-    let tf_idf_matrix = vectorizer.transform(&snippets_array).to_dense();
-    println!("TF-IDF matrix shape: {:?}.", tf_idf_matrix.shape());
+    let tf_idf_matrix = vectorizer
+        .transform(&snippets_array)
+        .to_dense();
+    // println!("TF-IDF matrix shape: {:?}.", tf_idf_matrix.shape());
 
     // Initialize dataset structure from tf-idf matrix and labels
     let dataset = DatasetBase::new(tf_idf_matrix, languages_array);
 
     // Naive bayes train
     let model = MultinomialNb::params().fit(&dataset).unwrap();
-    let pred = model.predict(&dataset);
-    let cm = pred.confusion_matrix(&dataset).unwrap();
-    println!("Accuracy {}%!", cm.accuracy() * 100.0);
+
+    // Naive bayes test predict
+    let test_snippet = "
+if n == 0:
+    return 1
+else:
+    return n * factorial(n - 1)
+    print('o commanded an shameless we disposing do.
+           Indulgence ten remarkably nor are impression')";
+    let test_snippet_array = Array::from(vec![test_snippet]);
+    let vectorized_test_snippet = vectorizer
+        .transform(&test_snippet_array)
+        .to_dense();
+    let prediction_index = model
+        .predict(&vectorized_test_snippet)[0];
+    println!("Snippet: {}.", test_snippet);
+    println!("Prediction: {}.", labels_vector[prediction_index]);
 }
