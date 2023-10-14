@@ -5,6 +5,9 @@ use linfa_preprocessing::*;
 use ndarray::*;
 use polars::prelude::*;
 use std::time::Instant;
+use std::fs::File;
+use ndarray_csv::Array2Reader;
+use csv::ReaderBuilder;
 
 
 fn main() {
@@ -12,28 +15,38 @@ fn main() {
     let now = Instant::now();
 
     // Data reading
-    let df = CsvReader::from_path("data/train_data_5exp_labeled.csv")
-        .unwrap()
-        .finish()
-        .unwrap();
+
+    let file = File::open("data/train_data_5exp_labeled.csv").unwrap();
+    let mut reader = ReaderBuilder::new().has_headers(false).from_reader(file);
+    let df: Array2<u64> = reader.deserialize_array2((100, 2)).unwrap();
+
+//    let df = CsvReader::from_path("data/train_data_5exp_labeled.csv")
+//        .unwrap()
+//        .finish()
+//        .unwrap();
     // Selecting ["snippet", "language"] columns
-    let df = df
-        .select(["snippet", "language"])
-        .unwrap();
+//    let df = df
+//        .select(["snippet", "language"])
+//        .unwrap();
     // println!("Dataframe shape and sample:\n {:?}.", df.head(Some(1)));
 
     // Labels mapping data reading
-    let labels_vector : Vec<String> = CsvReader::from_path("data/labels.csv")
-        .unwrap()
-        .finish()
-        .unwrap()
-        .column("language")
-        .unwrap()
-        .utf8()
-        .unwrap()
-        .into_iter()
-        .map(|opt_s| opt_s.unwrap_or_default().to_string())
-        .collect();
+
+    let file = File::open("data/labels.csv").unwrap();
+    let mut reader = ReaderBuilder::new().has_headers(false).from_reader(file);
+    let df: Array2<u64> = reader.deserialize_array2((100, 2)).unwrap();
+
+//    let labels_vector : Vec<String> = CsvReader::from_path("data/labels.csv")
+//        .unwrap()
+//        .finish()
+//        .unwrap()
+//        .column("language")
+//        .unwrap()
+//        .utf8()
+//        .unwrap()
+//        .into_iter()
+//        .map(|opt_s| opt_s.unwrap_or_default().to_string())
+//        .collect();
 
     // Get vector of snippet column
     let snippets: Vec<String> = df
