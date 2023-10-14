@@ -1,4 +1,4 @@
 /target
 /.idea
-/data/*
-!/data/train_data_5exp.csv
+data/*
+!data/train_data_5exp_labeled.csv
