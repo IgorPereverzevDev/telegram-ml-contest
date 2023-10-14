@@ -1,11 +1,15 @@
 use polars::prelude::*;
 use linfa_preprocessing::*;
-use ndarray::Array;
+use linfa_bayes::*;
+use ndarray::*;
+use linfa::traits::*;
+use linfa::metrics::*;
+use linfa_datasets::*;
 
 
 fn main() {
     // Data reading
-    let df = CsvReader::from_path("data/train_data_5exp.csv")
+    let df = CsvReader::from_path("data/train_data_5exp_labeled.csv")
         .unwrap()
         .finish()
         .unwrap();
@@ -13,9 +17,9 @@ fn main() {
     let df = df.select(["snippet", "language"])
         .unwrap();
 
-    println!("Dataframe shape: {:?}.", df.shape());
+    println!("Dataframe shape and sample:\n {:?}.", df.head(Some(1)));
 
-    // Get vector of snippet df column
+    // Get vector of snippet snippet column
     let snippets: Vec<String> = df.column("snippet")
         .unwrap()
         .utf8()
@@ -24,19 +28,29 @@ fn main() {
         .map(|opt_s| opt_s.unwrap_or_default().to_string())
         .collect();
 
-
     // Convert Vec<String> to ArrayBase
     let snippets_array = Array::from(snippets);
 
-    // Now use the array for CountVectorizer
-    let count_vectorizer = CountVectorizer::params()
-        .n_gram_range(1, 1)
+    // TF-IDF vectorizer fit
+    let vectorizer = tf_idf_vectorization::TfIdfVectorizer::default()
+        // .document_frequency(2.0, 10000.0)
         .fit(&snippets_array)
         .unwrap();
 
-    // Transform snippets_array by count_vectorizer
-    let training_matrix = count_vectorizer
-        .transform(&snippets_array);
+    println!("Vocabulary entries: {}.", vectorizer.nentries());
 
-    println!("{:?}", training_matrix.shape())
+    // Snippets array to TF-IDF matrix transformation
+    let tf_idf_matrix = vectorizer.transform(&snippets_array);
+
+    println!("TF-IDF matrix shape: {:?}.", tf_idf_matrix.shape());
+
+    // Naive Bayes test
+    let (train, valid) = winequality()
+        .map_targets(|x| if *x > 6 { "good" } else { "bad" })
+        .split_with_ratio(0.9);
+    let model = MultinomialNb::params().fit(&train).unwrap();
+    let pred = model.predict(&valid);
+    let cm = pred.confusion_matrix(&valid).unwrap();
+    println!("{:?}", cm);
+    println!("accuracy {}, MCC {}", cm.accuracy(), cm.mcc());
 }
