@@ -11,3 +11,4 @@ polars = {version = "0.33.2", features=["lazy"]}
 polars-core = {version = "0.33.2", features = ["ndarray"]}
 polars-io = "0.33.2"
 linfa-preprocessing = "0.6.1"
+ndarray = "0.15.6"
