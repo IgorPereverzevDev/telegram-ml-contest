@@ -2,3 +2,4 @@
 /.idea
 data/*
 !data/train_data_5exp_labeled.csv
+!data/labels.csv
