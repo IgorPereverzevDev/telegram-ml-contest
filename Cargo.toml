@@ -13,4 +13,3 @@ polars-io = "0.33.2"
 linfa-preprocessing = "0.6.1"
 ndarray = "0.15.6"
 linfa-bayes = "0.6.1"
-linfa-datasets = {version = "0.6.1", features = ["winequality"]}
