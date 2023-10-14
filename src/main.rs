@@ -4,9 +4,13 @@ use linfa::traits::*;
 use linfa_preprocessing::*;
 use ndarray::*;
 use polars::prelude::*;
+use std::time::Instant;
 
 
 fn main() {
+    // Get current timestamp
+    let now = Instant::now();
+
     // Data reading
     let df = CsvReader::from_path("data/train_data_5exp_labeled.csv")
         .unwrap()
@@ -83,12 +87,21 @@ else:
     return n * factorial(n - 1)
     print('o commanded an shameless we disposing do.
            Indulgence ten remarkably nor are impression')";
+    // Get current timestamp
+    let now_inference = Instant::now();
     let test_snippet_array = Array::from(vec![test_snippet]);
     let vectorized_test_snippet = vectorizer
         .transform(&test_snippet_array)
         .to_dense();
     let prediction_index = model
         .predict(&vectorized_test_snippet)[0];
-    println!("Snippet: {}.", test_snippet);
-    println!("Prediction: {}.", labels_vector[prediction_index]);
+    let prediction = labels_vector.get(prediction_index);
+    let elapsed_inference = now_inference.elapsed();
+    println!("\nSnippet: {}.", test_snippet);
+    println!("Prediction: {:?}.", prediction);
+
+    // Print execution time
+    let elapsed = now.elapsed();
+    println!("\nInference time: {:.2?}.", elapsed_inference);
+    println!("Execution time: {:.2?}.", elapsed);
 }
