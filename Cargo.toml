@@ -6,9 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-linfa = "0.6.1"
-linfa-bayes = "0.6.1"
-linfa-preprocessing = "0.6.1"
+linfa = {git = "https://github.com/rust-ml/linfa", version = "0.61"}
+linfa-bayes = {git = "https://github.com/rust-ml/linfa", version = "0.61"}
+linfa-preprocessing = {git = "https://github.com/rust-ml/linfa", version = "0.61"}
 ndarray = "0.15.6"
 ndarray-csv = "0.5.2"
 csv = "1.3.0"
