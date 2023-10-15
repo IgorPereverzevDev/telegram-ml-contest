@@ -1,601 +1,1014 @@
-snippet,language
-"	if __git_have_func $2; then
-		func=$2
-	elif __git_have_func __$2_main; then
-		func=__$2_main
-	elif __git_have_func _$2; then
-",0
-"alias dkric='docker run --rm -i -v $PWD:/cwd -w /cwd '
-alias dkrit='docker run --rm -it '
-alias dkritc='docker run --rm -it -v $PWD:/cwd -w /cwd '
+0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19
+"cite 'about-alias'
+about-alias 'puppet aliases'
 
-# Added more recent cleanup options from newer docker versions
-",0
-"    //*) # Expand filenames using package-path, no displacement
-      _bazel__expand_package_name ""$workspace"" """" ""$current"" ""$label_syntax""
-      ;;
-    *) # Expand filenames using package-path, displaced.
-      if [ -n ""$current"" ]; then
-",0
-"		printf ""%s = &KNOWNFOLDERID{0x%08x, 0x%04x, 0x%04x, [8]byte{0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x, 0x%02x}}\n"" \
-			""${BASH_REMATCH[1]}"" $(( ""${BASH_REMATCH[2]}"" )) $(( ""${BASH_REMATCH[3]}"" )) $(( ""${BASH_REMATCH[4]}"" )) \
-			$(( ""${BASH_REMATCH[5]}"" )) $(( ""${BASH_REMATCH[6]}"" )) $(( ""${BASH_REMATCH[7]}"" )) $(( ""${BASH_REMATCH[8]}"" )) \
-			$(( ""${BASH_REMATCH[9]}"" )) $(( ""${BASH_REMATCH[10]}"" )) $(( ""${BASH_REMATCH[11]}"" )) $(( ""${BASH_REMATCH[12]}"" ))
-	done < ""$knownfolders""
-",0
-"--experimental_announce_profile_path
---noexperimental_announce_profile_path
---experimental_build_event_expand_filesets
---noexperimental_build_event_expand_filesets
---experimental_build_event_fully_resolve_fileset_symlinks
-",0
-"		EntityId newEntityId = GetEntityId(pActInfo);
+# Aliases
+alias pupval=""puppet parser validate *.pp""
+ --distdir=
+--dump=
+--enable_platform_specific_config
+--noenable_platform_specific_config
+--experimental_allow_tags_propagation
+ # switch' tracking DWIMery.
+# 1: A prefix to be added to each listed branch (optional)
+# 2: List only branches matching this word (optional; list all branches if
+#    unset or empty).
+# 3: A suffix to be appended to each listed branch (optional).
+ --google_auth_scopes=
+--google_credentials=
+--google_default_credentials
+--nogoogle_default_credentials
+--graph:conditional_edges_limit=
+ --bes_results_url=
+--bes_timeout=
+--build_event_binary_file=
+--build_event_binary_file_path_conversion
+--nobuild_event_binary_file_path_conversion
+","/*
+ * mpc7448_hpc2.c
+ *
+ * Board setup routines for the Freescale mpc7448hpc2(taiga) platform
+ *
+ * Author: Jacob Pan
+ *	 jacob.pan@freescale.com
+ * Author: Xianghua Xiao
+ *       x.xiao@freescale.com
+ * Maintainer: Roy Zang <tie-fei.zang@freescale.com>
+ * 	Add Flat Device Tree support fot mpc7448hpc2 board
+ *
+ * Copyright 2004-2006 Freescale Semiconductor, Inc.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version
+ * 2 of the License, or (at your option) any later version.
+ */
 
-		if (m_entityId && newEntityId)
-			UnregisterEvent(m_event);
+#include <linux/stddef.h>
+#include <linux/kernel.h>
+#include <linux/pci.h>
+#include <linux/kdev_t.h>
+#include <linux/console.h>
+#include <linux/delay.h>
+#include <linux/irq.h>
+#include <linux/seq_file.h>
+#include <linux/root_dev.h>
+#include <linux/serial.h>
+#include <linux/tty.h>
+#include <linux/serial_core.h>
 
-",1
-"            if ((ret_value = av_get_packet(pb, pkt, audio_length)) != audio_length) {
-                if (ret_value < 0)
-                    return ret_value;
-                av_log(s, AV_LOG_ERROR, ""incomplete audio block\n"");
-                return AVERROR(EIO);
-",1
-"				SiS_SetReg(SISSR, 0x13, 0x31);
-		} else {		/* Dual 16/8 */
-			buswidth = 16;
-			SiS_SetReg(SISSR, 0x13, 0xb1);
-			SiS_SetReg(SISSR, 0x14, 0x41);
-",1
-"
-	return suspend_nvs_register(start, size);
+#include <asm/system.h>
+#include <asm/time.h>
+#include <asm/machdep.h>
+#include <asm/prom.h>
+#include <asm/udbg.h>
+#include <asm/tsi108.h>
+#include <asm/pci-bridge.h>
+#include <asm/reg.h>
+#include <mm/mmu_decl.h>
+#include <asm/tsi108_pci.h>
+#include <asm/tsi108_irq.h>
+#include <asm/mpic.h>
+
+#undef DEBUG
+#ifdef DEBUG
+#define DBG(fmt...) do { printk(fmt); } while(0)
+#else
+#define DBG(fmt...) do { } while(0)
+#endif
+
+#define MPC7448HPC2_PCI_CFG_PHYS 0xfb000000
+
+int mpc7448_hpc2_exclude_device(struct pci_controller *hose,
+				u_char bus, u_char devfn)
+{
+	if (bus == 0 && PCI_SLOT(devfn) == 0)
+		return PCIBIOS_DEVICE_NOT_FOUND;
+	else
+		return PCIBIOS_SUCCESSFUL;
 }
 
-int acpi_nvs_for_each_region(int (*func)(__u64 start, __u64 size, void *data),
-",1
-"	{ .gm = 7, .pga = 15, .pad = 12, .dac = 0, .bb_mult = 71, },
-	{ .gm = 7, .pga = 15, .pad = 12, .dac = 0, .bb_mult = 69, },
-	{ .gm = 7, .pga = 15, .pad = 12, .dac = 0, .bb_mult = 67, },
-	{ .gm = 7, .pga = 15, .pad = 12, .dac = 0, .bb_mult = 65, },
-	{ .gm = 7, .pga = 15, .pad = 12, .dac = 0, .bb_mult = 63, },
-",1
-"    ss << from_encoded(encoded_output, q.key) << ""="" << from_encoded(encoded_output, q.value);
-    first = false;
-  }
+static void __init mpc7448_hpc2_setup_arch(void)
+{
+	struct device_node *np;
+	if (ppc_md.progress)
+		ppc_md.progress(""mpc7448_hpc2_setup_arch():set_bridge"", 0);
 
-  return ss.str();
-",2
-" *           If the text type was visual_LTR and the option
- *           U_SHAPE_SPACES_RELATIVE_TO_TEXT_BEGIN_END was selected the END
- *           option will place the space at the beginning of the buffer and
- *           BEGIN will place the space at the end of the buffer.
+	tsi108_csr_vir_base = get_vir_csrbase();
+
+	/* setup PCI host bridge */
+#ifdef CONFIG_PCI
+	for_each_compatible_node(np, ""pci"", ""tsi108-pci"")
+		tsi108_setup_pci(np, MPC7448HPC2_PCI_CFG_PHYS, 0);
+
+	ppc_md.pci_exclude_device = mpc7448_hpc2_exclude_device;
+	if (ppc_md.progress)
+		ppc_md.progress(""tsi108: resources set"", 0x100);
+#endif
+
+	printk(KERN_INFO ""MPC7448HPC2 (TAIGA) Platform\n"");
+	printk(KERN_INFO
+	       ""Jointly ported by Freescale and Tundra Semiconductor\n"");
+	printk(KERN_INFO
+	       ""Enabling L2 cache then enabling the HID0 prefetch engine.\n"");
+}
+
+/*
+ * Interrupt setup and service.  Interrupts on the mpc7448_hpc2 come
+ * from the four external INT pins, PCI interrupts are routed via
+ * PCI interrupt control registers, it generates internal IRQ23
+ *
+ * Interrupt routing on the Taiga Board:
+ * TSI108:PB_INT[0] -> CPU0:INT#
+ * TSI108:PB_INT[1] -> CPU0:MCP#
+ * TSI108:PB_INT[2] -> N/C
+ * TSI108:PB_INT[3] -> N/C
  */
-",2
-"  }
+static void __init mpc7448_hpc2_init_IRQ(void)
+{
+	struct mpic *mpic;
+	phys_addr_t mpic_paddr = 0;
+	struct device_node *tsi_pic;
+#ifdef CONFIG_PCI
+	unsigned int cascade_pci_irq;
+	struct device_node *tsi_pci;
+	struct device_node *cascade_node = NULL;
+#endif
+
+	tsi_pic = of_find_node_by_type(NULL, ""open-pic"");
+	if (tsi_pic) {
+		unsigned int size;
+		const void *prop = of_get_property(tsi_pic, ""reg"", &size);
+		mpic_paddr = of_translate_address(tsi_pic, prop);
+	}
+
+	if (mpic_paddr == 0) {
+		printk(""%s: No tsi108 PIC found !\n"", __func__);
+		return;
+	}
+
+	DBG(""%s: tsi108 pic phys_addr = 0x%x\n"", __func__,
+	    (u32) mpic_paddr);
+
+	mpic = mpic_alloc(tsi_pic, mpic_paddr,
+			MPIC_PRIMARY | MPIC_BIG_ENDIAN | MPIC_WANTS_RESET |
+			MPIC_SPV_EOI | MPIC_NO_PTHROU_DIS | MPIC_REGSET_TSI108,
+			24,
+			NR_IRQS-4, /* num_sources used */
+			""Tsi108_PIC"");
+
+	BUG_ON(mpic == NULL);
+
+	mpic_assign_isu(mpic, 0, mpic_paddr + 0x100);
+
+	mpic_init(mpic);
+
+#ifdef CONFIG_PCI
+	tsi_pci = of_find_node_by_type(NULL, ""pci"");
+	if (tsi_pci == NULL) {
+		printk(""%s: No tsi108 pci node found !\n"", __func__);
+		return;
+	}
+	cascade_node = of_find_node_by_type(NULL, ""pic-router"");
+	if (cascade_node == NULL) {
+		printk(""%s: No tsi108 pci cascade node found !\n"", __func__);
+		return;
+	}
+
+	cascade_pci_irq = irq_of_parse_and_map(tsi_pci, 0);
+	DBG(""%s: tsi108 cascade_pci_irq = 0x%x\n"", __func__,
+	    (u32) cascade_pci_irq);
+	 		.progressive	= true,		    .trilevel_sync = true,
+
+		.vsync_start_f1 = 10,               .vsync_start_f2     = 10,
+		.vsync_len      = 10,
+
+ 	.clkr.hw.init = &(struct clk_init_data){
+		.name = ""gp1_clk_src"",
+		.parent_names = gcc_xo_gpll0_gpll1a_sleep,
+		.num_parents = 3,
+		.ops = &clk_rcg2_ops,
+     }
+    s->nonblocking = (h->flags & AVFMT_FLAG_NONBLOCK);
+
+    if (s->buffer_duration) {
+        int64_t bytes = s->buffer_duration;
+ void RC5_32_cfb64_encrypt(const unsigned char *in, unsigned char *out,
+                          long length, RC5_32_KEY *schedule,
+                          unsigned char *ivec, int *num, int enc);
+void RC5_32_ofb64_encrypt(const unsigned char *in, unsigned char *out,
+                          long length, RC5_32_KEY *schedule,
+","    if (fmt == SND_PCM_FORMAT_UNKNOWN)
+    {
+      CLog::Log(LOGERROR, ""CAESinkALSA::InitializeHW - Unable to find a suitable output format"");
+      return false;
+    }
+ 
+SWIGEXPORT jlong JNICALL Java_com_badlogic_gdx_physics_bullet_softbody_SoftbodyJNI_btSoftBody_1Cluster_1framexform_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  btSoftBody::Cluster *arg1 = (btSoftBody::Cluster *) 0 ;
+  btTransform *result = 0 ;
+ 
+    GPUMatrix<half> m1(GPUMatrix<half>::Zeros(size, size, c_deviceIdZero));
+    unique_ptr<half[]> result1(m1.CopyToArray());
+    for (int i = 0; i < size; i++)
+    {
+         ""otto.de"",
+        ""webalta.ru"",
+        ""tataindicom.com"",
+        ""ctvnews.ca"",
+        ""inlinkz.com"",
+ 
+static bool
+TryAttachConstStringSplit(JSContext* cx, ICCall_Fallback* stub, HandleScript script,
+                          uint32_t argc, HandleValue callee, Value* vp, jsbytecode* pc,
+                          HandleValue res, bool* attached)
+","2,2,2,2,2,26,5,27,27,5,Just by looking at the distribution and trying to see what I would do and then how to beat that.
+1,7,10,12,13,19,5,26,5,2,""This distribution wins against a large number of the entries from the previous version, as well as the winner and similar strategies. It is easy to enter and I'm counting on there being a large number of submissions made in reference to the winner or ignoring the other information.""
+0,0,0,6,4,4,25,25,11,25,Maximizing opportunities to get 28 points
+1,8,7,9,13,0,23,30,3,6,""This randomly generated strategy had the best win rate I could find against the previous dataset (of the previous 1387 strategies, this wins 1192 of the matches)... I think.""
+2,7,10,12,15,3,28,15,4,4,for glory
+ 499000000,3600.0,12.0,376.0
+500000000,3600.0,12.0,377.0812243771681
+501000000,3600.0,12.0,378.0
+502000000,3600.0,12.0,379.8152352358274
+503000000,3600.0,12.0,380.60633348283056
+ Galaxy485,3558.99,145.55,-0.028540,0.274128
+Galaxy486,664.88,2764.03,-0.225892,-0.294128
+Galaxy487,2648.65,3612.98,-0.047903,0.107715
+Galaxy488,2320.72,2173.59,0.217736,0.578805
+Galaxy489,3762.46,1446.19,-0.123470,0.435469
+ 14.02,1.68,2.21,16,96,2.65,2.33,0.26,1.98,4.7,1.04,3.59,1035,0
+13.73,1.5,2.7,22.5,101,3,3.25,0.29,2.38,5.7,1.19,2.71,1285,0
+13.58,1.66,2.36,19.1,106,2.86,3.19,0.22,1.95,6.9,1.09,2.88,1515,0
+13.68,1.83,2.36,17.2,104,2.42,2.69,0.42,1.97,3.84,1.23,2.87,990,0
+13.76,1.53,2.7,19.5,132,2.95,2.74,0.5,1.35,5.4,1.25,3,1235,0
+ 3234906064,Lottery B,No,No,,No,Yes,No,Yes,Medium Well,Male,> 60,""$50,000 - $99,999"",Some college or Associate degree,Mountain
+3234905473,Lottery B,No,Yes,No,No,Yes,No,Yes,Medium,Male,18-29,""$50,000 - $99,999"",Some college or Associate degree,South Atlantic
+3234904710,Lottery B,No,Yes,Yes,No,Yes,No,Yes,Medium rare,Male,45-60,,Some college or Associate degree,West South Central
+3234900937,,No,Yes,No,No,Yes,No,Yes,Medium rare,,,,,
+3234900347,Lottery B,No,Yes,Yes,No,Yes,No,No,,Male,45-60,""$50,000 - $99,999"",Graduate degree,South Atlantic
+",".byebug_history
+
+# Have editor/IDE/OS specific files you need to ignore? Consider using a global gitignore:
+#
+# * Create a file at ~/.gitignore
+ # Gradle:
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# CMake
+ Nehal Panchal <nep@tinyerp.com> Nehal Panchal (OpenERP) <>
+Nehal Panchal <nep@tinyerp.com> Nehal Panchal <>
+Nhomar Hernandez <nhomar@vauxoo.com>
+Nhomar Hernandez <nhomar@vauxoo.com> <nhomar@gmail.com>
+Nick Booker <nick.booker@opusvl.com>
+ *.rar
+*.tar
+*.zip
+*.com
+*.class
+ /.DS_Store
+/.clangd
+
+/CMakeSettings.json
+/out/*
+","	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ""/runtime.v1.RuntimeService/Version"",
+	}
+ 			}
+			m.Token = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+ 			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGenerated
+			}
+			if postIndex > l {
+ // Get max, average, and 90p from existing samples.
+func (r *resource) GetAllPercentiles() info.Percentiles {
+	p := info.Percentiles{}
+	p.Mean = uint64(r.mean.Mean)
+	p.Max = r.max
+ package main
+
+import (
+	""bytes""
+	""encoding/json""
+	log ""github.com/Sirupsen/logrus""
+	""github.com/facchinm/go-serial""
+	""io""
+	""strconv""
+	""time""
+)
+
+type SerialConfig struct {
+	Name string
+	Baud int
+
+	// Size     int // 0 get translated to 8
+	// Parity   SomeNewTypeToGetCorrectDefaultOf_None
+	// StopBits SomeNewTypeToGetCorrectDefaultOf_1
+
+	// RTSFlowControl bool
+	// DTRFlowControl bool
+	// XONFlowControl bool
+
+	// CRLFTranslate bool
+	// TimeoutStuff int
+	RtsOn bool
+	DtrOn bool
+}
+
+type serport struct {
+	// The serial port connection.
+	portConf *SerialConfig
+	portIo   io.ReadWriteCloser
+
+	done chan bool // signals the end of this request
+
+	// Keep track of whether we're being actively closed
+	// just so we don't show scary error messages
+	isClosing bool
+
+	// counter incremented on queue, decremented on write
+	itemsInBuffer int
+
+	// buffered channel containing up to 25600 outbound messages.
+	sendBuffered chan Cmd
+
+	// unbuffered channel of outbound messages that bypass internal serial port buffer
+	sendNoBuf chan Cmd
+
+	// Do we have an extra channel/thread to watch our buffer?
+	BufferType string
+	//bufferwatcher *BufferflowDummypause
+	bufferwatcher Bufferflow
+
+	// Keep track of whether this is the primary serial port, i.e. cnc controller
+	// or if its secondary, i.e. a backup port or arduino or something tertiary
+	IsPrimary   bool
+	IsSecondary bool
+}
+
+type Cmd struct {
+	data                       string
+	id                         string
+	skippedBuffer              bool
+	willHandleCompleteResponse bool
+}
+
+type CmdComplete struct {
+	Cmd     string
+	Id      string
+	P       string
+	BufSize int    `json:""-""`
+	D       string `json:""-""`
+}
+
+type qwReport struct {
+	Cmd  string
+	QCnt int
+	Id   string
+	D    string `json:""-""`
+	Buf  string `json:""-""`
+	P    string
+}
+
+type SpPortMessage struct {
+	// P string // the port, i.e. com22
+	D string // the data, i.e. G0 X0 Y0
+}
+
+type SpPortMessageRaw struct {
+	// P string // the port, i.e. com22
+	D []byte // the data, i.e. G0 X0 Y0
+}
+
+func (p *serport) reader() {
+
+	//var buf bytes.Buffer
+	ch := make([]byte, 1024)
+	timeCheckOpen := time.Now()
+
+	for {
+
+		n, err := p.portIo.Read(ch)
+
+		//if we detect that port is closing, break out o this for{} loop.
+		if p.isClosing {
+			strmsg := ""Shutting down reader on "" + p.portConf.Name
+			log.Println(strmsg)
+			h.broadcastSys <- []byte(strmsg)
+			break
+		}
+
+		// read can return legitimate bytes as well as an error
+		// so process the bytes if n > 0
+		if n > 0 {
+			//log.Print(""Read "" + strconv.Itoa(n) + "" bytes ch: "" + string(ch))
+			data := string(ch[:n])
+			//log.Print(""The data i will convert to json is:"")
+			//log.Print(data)
+
+			// give the data to our bufferflow so it can do it's work
+			// to read/translate the data to see if it wants to block
+			// writes to the serialport. each bufferflow type will decide
+			// this on its own based on its logic, i.e. tinyg vs grbl vs others
+			//p.b.bufferwatcher..OnIncomingData(data)
+			p.bufferwatcher.OnIncomingData(data)
+
+			// see if the OnIncomingData handled the broadcast back
+			// to the user. this option was added in case the OnIncomingData wanted
+			// to do something fancier or implementation specific, i.e. TinyG Buffer
+			// actually sends back data on a perline basis rather than our method
+			// where we just send the moment we get it. the reason for this is that
+			// the browser was sometimes getting back packets out of order which
+			// of course would screw things up when parsing
+
+			if p.bufferwatcher.IsBufferGloballySendingBackIncomingData() == false {
+				//m := SpPortMessage{""Alice"", ""Hello""}
+				m := SpPortMessage{data}
+				//log.Print(""The m obj struct is:"")
+				//log.Print(m)
+
+				//b, err := json.MarshalIndent(m, """", ""\t"")
+				b, err := json.Marshal(m)
+				if err != nil {
+					log.Println(err)
+					h.broadcastSys <- []byte(""Error creating json on "" + p.portConf.Name + "" "" +
+						err.Error() + "" The data we were trying to convert is: "" + string(ch[:n]))
+					break
+				}
+				//log.Print(""Printing out json byte data..."")
+				//log.Print(string(b))
+				h.broadcastSys <- b
+				//h.broadcastSys <- []","    return newChars.join("""");
 };
 
-// Returns true iff the sum of the arguments is an even number.
-bool SumIsEven2(int n1, int n2) {
-",2
-"ArenasToUpdate::next(AutoLockHelperThreadState& lock)
-{
-    // Find the next arena to update.
-    //
-    // This iterates through the GC thing kinds filtered by shouldProcessKind(),
-",2
-"{
-  if (!gEnablePersistentEventFiring) {
-    // Persistent event firing is disabled.
-    return;
-  }
-",2
-"linux_unicode_word,3,10,rg (ignore) (ASCII),rg -n (?-u)\wAh,0.2986025810241699,174,
-linux_unicode_word,3,10,ag (ignore) (ASCII),ag -s \wAh,1.7579238414764404,174,
-linux_unicode_word,3,10,ag (ignore) (ASCII),ag -s \wAh,1.7875633239746094,174,
-linux_unicode_word,3,10,ag (ignore) (ASCII),ag -s \wAh,1.7632112503051758,174,
-linux_unicode_word,3,10,ag (ignore) (ASCII),ag -s \wAh,1.7843427658081055,174,
-",3
-"generated/pandas.api.extensions.register_extension_dtype,../reference/api/pandas.api.extensions.register_extension_dtype
-generated/pandas.api.extensions.register_index_accessor,../reference/api/pandas.api.extensions.register_index_accessor
-generated/pandas.api.extensions.register_series_accessor,../reference/api/pandas.api.extensions.register_series_accessor
-generated/pandas.api.types.infer_dtype,../reference/api/pandas.api.types.infer_dtype
-generated/pandas.api.types.is_bool_dtype,../reference/api/pandas.api.types.is_bool_dtype
-",3
-"""90"",""FaceRecognition"",0.00342823,10,0.7151399,0.0936683556638349,0.0296205348580451,0.0670063050950407,0.782146205095041,0.648133594904959
-""91"",""FaceRecognition"",0.00347602,10,0.7142034,0.0937044658146025,0.0296319538903529,0.0670321367407679,0.781235536740768,0.647171263259232
-""92"",""FaceRecognition"",0.00352447,10,0.7132536,0.0937427651812247,0.0296440652134997,0.0670595344571754,0.780313134457175,0.646194065542825
-""93"",""FaceRecognition"",0.0035736,10,0.7122907,0.0937838076168921,0.0296570439712427,0.067088894446968,0.779379594446968,0.645201805553032
-""94"",""FaceRecognition"",0.00362342,10,0.7113144,0.0938279444174282,0.0296710012530754,0.067120468012039,0.778434868012039,0.644193931987961
-",3
-"2017-05-12 19:40:00,10.3
-2017-05-12 19:45:00,10.5
-2017-05-12 19:50:00,10.2
-2017-05-12 19:55:00,10.3
-2017-05-12 20:00:00,10.3
-",3
-"22311020,""HAM, SMOKED OR CURED, COOKED, LEAN ONLY"",""Ham, smoked or cured, cooked, lean only eaten""
-22311200,""HAM, SMOKED OR CURED, LOW NA, NS AS TO FAT"",""Ham, smoked or cured, low sodium, cooked, NS as to fat eaten""
-22311210,""HAM, SMOKED OR CURED, LOW NA, LEAN & FAT"",""Ham, smoked or cured, low sodium, cooked, lean and fat eaten""
-22311220,""HAM, SMOKED OR CURED, LOW NA, LEAN ONLY"",""Ham, smoked or cured, low sodium, cooked, lean only eaten""
-22311450,""HAM, PROSCIUTTO"",""Ham, prosciutto""
-",3
-"root = true
+description();
 
-# Unix-style newlines with a newline ending every file.
-[*]
-insert_final_newline = true
-",4
-"Examples/Image/Classification/AlexNet/Python/Models/
-Examples/Image/Classification/ConvNet/Python/Models/
-Examples/Image/Classification/GoogLeNet/BN-Inception/Python/Models/
-Examples/Image/Classification/ResNet/Python/Models/
-Examples/Image/Classification/ResNet/ResNet_18.model
-",4
-"*.pubxml
-*.publishproj
-
-# NuGet Packages
-*.nupkg
-",4
-"
-                ""funky
-                nnoremap <Leader>fu :CtrlPFunky<Cr>
-            endif
-        endif
-",4
-"
-# Build and push plain and alpine docker images for all tags.
-function multi_arch_docker::build_and_push_all() {
-  for tag in $TAGS; do
-    multi_arch_docker::buildx -t ""$DOCKER_BASE:$tag"" --build-arg ""tag=$tag""
-",4
-"	}
-	_, _, e1 := syscall_syscall(funcPC(libc_fremovexattr_trampoline), uintptr(fd), uintptr(unsafe.Pointer(_p0)), uintptr(options))
-	if e1 != 0 {
-		err = errnoErr(e1)
-	}
-",5
-"	CLOCK_VIRTUAL                  = 0x1
-	CREAD                          = 0x800
-	CRTSCTS                        = 0x30000
-	CS5                            = 0x0
-	CS6                            = 0x100
-",5
-"
-// RegisterHandler registers into the ServeMux a handler chain that borrows
-// its security properties from the fabhttp.Server. This method is thread
-// safe because ServeMux.Handle() is thread safe, and options are immutable.
-// This method can be called either before or after Server.Start(). If the
-",5
-"	}
-
-	// Set buffer size to 1 so the error message can be written when
-	// ReceivePack fails. Otherwise the goroutine will be blocked writing
-	// to the channel.
-",5
-"		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			s := new(Store)
-",5
-"              </li>
-              <li class=""nav-group-task"">
-                <a class=""nav-group-task-link"" href=""../Protocols/ResponseSerializer.html"">ResponseSerializer</a>
-              </li>
-              <li class=""nav-group-task"">
-",6
-"        </div>  
-
-    </div>
+     // Only handle the first file; don't handle multiple selection.
+    // The parts of the log we care about are ASCII-only.  Since we
+    // can ignore lines we don't care about, best to read in as
+    // iso-8859-1, which guarantees we don't get decoding errors.
+    var fileReader = new FileReader();
+ </head>
+<body>
+<div id=""description""></div>
+<div id=""console""></div>
+<canvas id=""canvas"" width=""8"" height=""8"" style=""width: 8px; height: 8px;""></canvas>
+ </p>
 </div>
+<div class=""sect2"">
+<div class=""titlepage""><div><div><h3 class=""title"">
+<a name=""cpui_int_sless""></a>INT_SLESS</h3></div></div></div>
+ <div class=""container"">
+  <section>
+    <div class=""row-fluid"">
+      <div class=""span9"">
+        <p>After you get <a href=""../../integration/"">up and running</a>, you can place Font Awesome icons just about anywhere with the <code>&lt;i&gt;</code> tag:</p>
+","                    {
+                      ""age"": 95,
+                      ""cost"": 37.01,
+                      ""country"": ""UK"",
+                      ""price"": 33,
+         ""paragraphs"": [
+            ""梅蹊命道士，桃澗佇神仙。"",
+            ""舊魚成大劒，新龜類小錢。"",
+            ""水湄唯見柳，池曲且生蓮。"",
+            ""欲知賞心處，桃花落眼前。""
+ 				},
+				{
+					""include"": ""#illegal-anno""
+				},
+				{
+ 				""3"": {
+					""name"": ""storage.type.enum.js""
+				},
+				""4"": {
+					""name"": ""entity.name.type.enum.js""
+       ""name"": ""s2010048"",
+      ""cid"": ""1010023"",
+      ""type"": 3,
+      ""status"": 3,
+      ""statusString"": ""loaded"",
+","
+        selectedMenuItem.setIconColor(Theme.getColor(Theme.key_dialogTextBlack));
+        Theme.setDrawableColor(selectedMenuItem.getBackground(), Theme.getColor(Theme.key_dialogButtonSelector));
+        selectedMenuItem.setPopupItemsColor(Theme.getColor(Theme.key_actionBarDefaultSubmenuItem), false);
+        selectedMenuItem.setPopupItemsColor(Theme.getColor(Theme.key_actionBarDefaultSubmenuItem), true);
+ 			return this.readers;
+		}
 
-",6
-"L 326.620985 54.898159 
-L 331.345614 54.517014 
-L 336.070244 52.885456 
-L 340.794873 51.409543 
-L 345.519503 51.304666 
-",6
-"      </span>
-      <span class=""sympad"">IterativeBoxBlurPostProcessor</span>
-      <span class=""normal"">(int blurRadius)</span>
-    </h4>
-      <div class=""api-level"">
-",6
-"	<label><span class='expander'>▶</span> Options inherited from <a href='#layer'>Layer</a></label>
-	<div class='accordion-overflow'>
-		<div class='accordion-content'><section >
+		@Override
+		public List<HttpMessageWriter<?>> messageWriters() {
+ 		}
+	}
+	
+	public ConfigurationFileToSource fileToSource(final ConfigurationParser parser) {
+		return new ConfigurationFileToSource() {
+     InetSocketAddress mockAdd1 = new InetSocketAddress(RM1_PORT);
+    InetSocketAddress mockAdd2 = new InetSocketAddress(RM2_PORT);
 
+    // Mock RMProxy methods
+    when(mockRMProxy.getRMAddress(any(YarnConfiguration.class),
+   }
 
-",6
-"  {
-    ""id"": ""model.group.update_at.app_error"",
-    ""translation"": ""Ungültige Eigenschaft \""update at\"" für Gruppe""
-  },
-  {
-",7
-"        ""id"": ""78a1bbdc-ab08-4bf7-b8de-d254992d5f64""
-    },
+  /**
+   * Blocks until the task is allowed to proceed.
+   *
+","  set propWithMismatchingGetterAndSetter(x: string) { } // doesn't match getter (OK)
+
+  set [z](x: string) {}
+  get [z](): string { return string; }
+};
+   t: T,
+  f: number
+|};
+
+const Component = <T>(props: Props<T>): React.Node => <div />;
+ var documentOk = 0;
+var documentFail = 0;
+var progressBarWidth = 868;
+var parsingBlock = false;
+var parseURL = '?m=import&a=massImportDocument';
+var parseSent = 0;
+var parseReceived = 0;
+
+// Maintain seperate arrays for clarity (versus a big multi-dimensional one)
+var documentName = Array();
+var documentRealName = Array();
+var documentExt = Array();
+var documentType = Array();
+var documentCTime = Array();
+
+function goStep4()
+{
+    var btn = document.getElementById('nextStep');
+    btn.disabled = 'true';
+    btn.value = 'Please wait...';
+    document.location.href='?m=import&a=massImport&step=4';
+}
+
+function setProgressBar(x, fileName)
+{
+    var barObj = document.getElementById('statusBar');
+    var fileNameObj = document.getElementById('fileName');
+    var width = Math.floor(progressBarWidth * x / 100);
+
+    fileNameObj.innerHTML = fileName;
+    barObj.style.width = width + 'px';
+}
+
+function addDocument(name, realName, ext, type, cTime)
+{
+    documentName.push(name);
+    documentRealName.push(realName);
+    documentExt.push(ext);
+    documentType.push(type);
+    documentCTime.push(cTime);
+}
+
+function startDocumentParsing()
+{
+    if (parsingBlock)
     {
-        ""author"": ""謝逸"",
-        ""paragraphs"": [
-",7
-"          },
-          ""directive"":null
-        },
+
+    }
+    else
+    {
+        if (currentDocument >= documentName.length)
         {
-          ""type"":""ExpressionStatement"",
-",7
-"      ""欲去恨无因，奈阻隔、川途百里。"", 
-      ""香蒲角黍，对暑悄无言，梅雨细，麦风轻，怅望宽垂泪。""
-    ], 
-    ""rhythmic"": ""蓦山溪""
-  }, 
-",7
-"        ""google"": 3460
-    },
-    {
-        ""baidu"": 5,
-        ""author"": ""李綱"",
-",7
-"      return reader.getDataClass();
-    }
-
-    @NonNull
-    @Override
-",8
-"          .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ))
-          .addConnectionCallbacks(
-              new GoogleApiClient.ConnectionCallbacks() {
-                @Override
-                public void onConnected(Bundle bundle) {
-",8
-" * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.dianping.cat.build;
-
-",8
-"    if (position >= daysInWeek) {
-      return null;
-    }
-    return positionToDayOfWeek(position);
-  }
-",8
-"// Copyright 2000-2020 JetBrains s.r.o. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-package com.intellij.codeInspection.streamMigration;
-
-
-import com.intellij.psi.*;
-",8
-"      // Clone to avoid manipulating the comparator's semver object.
-      var compver = new SemVer(comparator.semver.version)
-      switch (comparator.operator) {
-        case '>':
-          if (compver.prerelease.length === 0) {
-",9
-"    },
-    '@npmcli/run-script': opts => {},
-    '../../lib/utils/reify-finish.js': async () => {},
-    '@npmcli/arborist': function () {
-      this.loadVirtual = () => Promise.resolve(true)
-",9
-"					const modulo = 1 / Math.pow(1 / modulesCount, 1 / 31);
-					const modulos = Array.from(
-						{ length: 31 },
-						(x, i) => Math.pow(modulo, i) | 0
-					);
-",9
-"    if (isFunction(resolvedAttrDef)) {
-      resolvedAttrDef = resolvedAttrDef(context);
-    }
-
-    /* eslint-disable guard-for-in */
-",9
-"		onSortChange: PropTypes.func,
-		sortOrder: PropTypes.oneOf( [ 'date-followed', 'alpha' ] ),
-	};
-
-	static defaultProps = {
-",9
-"    ""\n"",
-    ""        if step % display_step == 0 or step == 1:\n"",
-    ""            if step > 1:\n"",
-    ""                average_loss /= display_step\n"",
-    ""            print(\""Step \"" + str(step) + \"", Average Loss= \"" + \\\n"",
-",10
-"   ]
-  },
-  {
-   ""cell_type"": ""markdown"",
-   ""metadata"": {
-",10
-"   ],
-   ""source"": [
-    ""regex = \""[c-o]+\""\n"",
-    ""print(re.search(regex, \""hello\""))\n"",
-    ""print(re.search(regex, \""rice\""))""
-",10
-"     ""data"": {
-      ""image/png"": ""iVBORw0KGgoAAAANSUhEUgAAAcAAAAEtCAYAAACf/7AvAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\nAAALEgAACxIB0t1+/AAAIABJREFUeJzt3XlYVPX+B/D3mYUdYkA2UVwRRk1Qy7DFSK9aN03Npcyl\nK6mpVFfvz/LazYo0d71tYiV6KzMtC9PUupqKWZItZnlLETVwQ0Bk2JdZzu8PdGAWltGBM8O8X8/j\ng+fMOWc+g8Wb7znfRdBoNCKIiIhcjEzqAoiIiKTAACQiIpfEACQiIpfEACQiIpfEACQiIpfEACQi\nIpfEACQiIpckeQAePnwY48ePR/fu3aFSqbB58+ZGz/njjz/w4IMPIiwsDD169MDy5ctboFIiImpN\nJA/AsrIy9OjRA0uXLoWXl1ejx5eUlGDUqFEIDQ1FWloalixZgjfffBNr1qxpgWqJiKi1UEhdwODB\ngzF48GAAwKxZsxo9/pNPPkFFRQXWrl0LNzc3REVF4dSpU0hOTkZiYmJzl0tERK2E5C1AW/3444/o\n378/3NzcjPsGDRqEnJwcnDt3TsLKiIjImThdAObl5SE4ONhkX1BQEERRRF5enkRVERGRs3G6ACQi\nIrIHpwvA4OBgi5Zefn4+BEGwaBkSERHVx+kCsF+/fkhPT0d1dbVx3/79+xEWFoaIiAgJKyMiImci\neQCWlZXh+PHj+O2332AwGHDhwgUcP34cFy5cAAAkJSVhxIgRxuPHjBkDLy8vzJo1CydOnMCOHTvw\n+uuvN9oDNH5HHkb/I6lZP8vNyMzMlLqEJmGd9uMMNQKs095Yp+OQPAB/+eUXDBgwAPHx8aisrMSS\nJUtw7733YsmSJQCA3NxcZGdnG4/38/PDtm3bkJOTg4EDB2LevHl4+umnGx1CkZP6Bnw9PZr1sxAR\nkfOQfBzg3XffjcLCwnpfT05OttinVquxa9cum94n7OFnMDDa2+b6iIiodZK8BdiSThZqpS6BiIgc\nhEsF4AmNDqIoSl0GERE5AJcKwMIqA/IrDVKXQUREDsClAhAATvA2KBERwQUD8KRGJ3UJRETkAFww\nANkCJCIiFwzADI0OenaEISJyeS4XgOU6EedL9VKXQUREEnO5AAQ4HpCIiFw1ANkRhojI5blkAJ5g\nRxgiIpfnkgF4pkiHaj07whARuTKXCcAQz9qPqhOBM8W8DUpE5MpcJgCj/ZUm27wNSkTk2lwmANUq\n05WfMgrZAiQicmUuE4BsARIRUV0uE4Dd/BUQ6myfK9WjVMuVIYiIXJXLBKCXQoYOvnKTfac4HpCI\nyGW5TAACgJq3QYmI6BqXCsBof9OOMCfZEYaIyGW5VgCqTFuAXBqJiMh1uVQAdvZTQFnnE+dXGnCl\nkitDEBG5IpcKQKVMQNdbeBuUiIhcLAABy44wvA1KROSaXC4AzQfEMwCJiFyT6wWg2ZRoJzU6iCJX\nhiAicjUuF4DtvOXwVtTOCVOqFXGxjB1hiIhcjcsFoEwQLMYDnuCMMERELsflAhCwMh6wkM8BiYhc\njUMEYEpKCmJiYhAaGor4+Hikp6c3ePy2bdtwzz33oG3btujVqxfefPNNm96PHWGIiEjyAExNTcX8\n+fMxd+5cHDp0CP369cPYsWNx8eJFq8fv3bsX06ZNQ0JCAtLT07Fq1SokJycjJSWlye9pvjbgqSId\ndAZ2hCEiciWSB2BycjImTpyISZMmITIyEsuXL0dISAg2bNhg9fhPPvkEDzzwAKZMmYIOHTpg8ODB\nmDNnDl577bUmv2cbDznaeNR+dK0BOFvM54BERK5E0gDUarU4duwY4uPjTfYPHDgQR44csXpOVVUV\nPDw8TPZ5eHjg0qVLOH/+fJPf22JibHaEISJyKZIGYEFBAfR6PYKDg032BwUFIS8vz+o5gwYNwu7d\nu3HgwAGIoojTp09jzZo1AIDc3Nwmv7eaE2MTEbk0yW+B2urxxx/H9OnTMWHCBAQFBWHIkCEYPXo0\nAEAma/rHiTJfG5A9QYmIXIqg0Wgk6/2h1WoRFhaG9evXY8SIEcb9zz77LE6cOIGdO3fWe64oisjN\nzUWbNm2QlpaGcePG4fTp0wgICLB6fGZmpsl2uR74+6lbjNsCRLwRVQwPp/uVgIjI9URGRt70NRSN\nH9J8lEolYmNjkZaWZhKABw4cwMiRIxs8VxAEhIaGAgC2bt2Kfv361Rt+gPVvVvtLBThfWjMLjAgB\nhjYdEBnodiMf5aZlZmba5R+0ubFO+3GGGgHWaW+s03FIGoAAkJiYiBkzZqB3796Ii4vD+vXrkZub\niylTpgAAkpKScPToUWzfvh0AcPXqVXz++ee4++67UVVVhQ8//BBffPEFdu/ebfN7R/srjAEIACcK\ndYiRKACJiKhlSR6Ao0aNQmFhIVatWoXc3Fyo1Wps3boV4eHhAGo6tmRnZ5ucs2XLFrz00ksQRRG3\n3347du3ahdjYWJvfW+2vxN4LVcbtDHaEISJyGZIHIAAkJCQgISHB6mvJyckm2wEBAdizZ49d3td8\nSrQTDEAiIpfh0l0+uvgpIK9dGAKXyw3QVBmkK4iIiFqMSwegu1xAFz/zAfFsBRIRuQKXDkDAckA8\nxwMSEbkGlw9ATolGROSaGIBWlkYSRa4MQUTU2rl8AEb4yuFZpydMUbWIy+XsCENE1Nq5fADKBQHd\nzG6DcjgEEVHr5/IBCNQMiK+LPUGJiFo/BiCAaLMV4k8WsiMMEVFrxwCEZUeYU0Va6AzsCENE1Jox\nAAGEeMqgcqvtCFOpB87VmSSbiIhaHwYgapZWspgXlAPiiYhaNQbgNdbGAxIRUevFALzGoiMMZ4Qh\nImrVGIDXmLcAzxTrUKVnRxgiotaKAXjNLW4ytPWq/XYYRCCziK1AIqLWigFYh3lHGD4HJCJqvRiA\ndVjMCMOeoERErRYDsI4oizlBeQuUiKi1YgDWEXmLErLa8fC4WKZHcTVXhiAiao0YgHV4KgR08jVt\nBWbwOSARUavEADRjvkI8b4MSEbVODEAzarOeoGwBEhG1TgxAM+YtwD8KdRBFDognImptGIBmOvoq\n4C6v3S6sMiC/kh1hiIhaGwagGYVMQOQtHA9IRNTaMQCtULMjDBFRq8cAtIJLIxERtX4MQCvMl0bK\n0OhgYEcYIqJWxSECMCUlBTExMQgNDUV8fDzS09MbPH7fvn0YMmQI2rdvjy5duuCxxx7DmTNn7FZP\nWy85/JS1U8KU60ScL9Xb7fpERCQ9yQMwNTUV8+fPx9y5c3Ho0CH069cPY8eOxcWLF60en52djQkT\nJuCuu+7CoUOHsH37dlRVVWHcuHF2q0kQBESZ3QY9wY4wREStiuQBmJycjIkTJ2LSpEmIjIzE8uXL\nERISgg0bNlg9/tixY9DpdHjxxRfRsWNH9OzZE7Nnz8aff/6JwsJCu9Wl5grxREStmqQBqNVqcezY\nMcTHx5vsHzhwII4cOWL1nD59+kCpVOKDDz6AwWBASUkJPvroI/Tt2xcqlcputbEjDBFR6yZpABYU\nFECv1yM4ONhkf1BQEPLy8qye0759e6SmpmLx4sUIDg5Ghw4dcPLkSWzZssWutZkH4OkiHar17AhD\nRNRaKBo/xLHk5eXh6aefxvjx4zF69GiUlpZi8eLFePzxx7Fz5856z8vMzLT5vQIUvriqq/kdQScC\nab//iU6ezdcZ5kZqlALrtB9nqBFgnfbGOm9eZGTkTV/DpgAURRG///47MjIyUFBQAEEQEBgYiG7d\nuqFHjx4QBKHxi9QRGBgIuVxu0drLz8+3aBVet27dOnh7e+Pll1827nvnnXfQo0cPHDlyBHfccYfV\n827km3WrpggHc6qM22W+oYjs5GXzdZoiMzPTLv+gzY112o8z1AiwTntjnY6jSQH4zTffYNOmTfjy\nyy9RWlpqMTm0IAjw8fHB/fffjwkTJuDee+9t0psrlUrExsYiLS0NI0aMMO4/cOAARo4cafWciooK\nyOVyk30yWU0rzWCw75yd0f4KkwA8WagDOtn1LYiISCINBuDXX3+NV199FceOHYNarcakSZMQGxuL\njh07wt/fH6IoQqPRIDs7G8eOHTMGV0xMDBYsWIBBgwY1WkBiYiJmzJiB3r17Iy4uDuvXr0dubi6m\nTJkCAEhKSsLRo0exfft2AMCQIUOwdu1aLF++HGPGjEFxcTEWLlyIdu3aITY21g7fklrRKnaEISJq\nrRoMwMmTJ2PSpEl4++23ERUVVe9x18fuAUBGRgbWr1+PyZMn1zuWr65Ro0ahsLAQq1atQm5uLtRq\nNbZu3Yrw8HAAQG5uLrKzs43HDxgwACkpKXj99dfx5ptvwtPTE7fddhs+++wzeHp6NulDN1WUvwIC\ngOvt3XOlepRqDfBRSj56hIiIbpKg0Wjq7dpYUFCAwMDAG7rwzZzrSP52oABZJbUdX1b390efIDe7\nv4+z3G9nnfbjDDUCrNPeWKfjaLApczMB1hrCD+B4QCKi1or38hphvjQSZ4QhImodbB4G8d5772Hj\nxo3IysqCRqOxOEYQBBQUFNitQKlFqTgnKBFRa2RTAL744otYs2YNbr31VowbNw7+/v7NVZfD6OKn\ngFIGaK+NsMivNKCgUo9AD3nDJxIRkUOzKQA3b96Mhx56CO+9914zleN4lDIBXW9R4ERh7a3Pkxod\n7gplABIROTObngFWVlZaTFztCsw7wvA2KBGR87MpAAcMGICjR482Vy0Oy7wjTAY7whAROT2bAnDV\nqlX46aefsHLlynpXa2iNzGeEOaHRWkwHR0REzsWmZ4C9e/eGKIpYvHgxFi9eDKVSaZyH8zpBEHDp\n0iW7Fim1dt5yeCsElOlqQq9UK+JimR7tfJxuMQ0iIrrGpp/go0aNsnnFh9ZAJgiI8lfg6JXaZ38n\nNToGIBGRE7PpJ/jatWubqw6Hp1YpTQLwhEaLv7TzkLAiIiK6GZwJpokspkRjT1AiIqfWYAB+8803\nN3zhmznXEUWb9QTNLNJBZ2BHGCIiZ9VgAD7yyCMYPHgwNm/ejOLi4kYvVlxcjI8++giDBw/Go48+\narciHUGQpxxtPGq/XdUG4M8SDocgInJWDT4D/Pnnn7Fs2TL8/e9/x+zZs9G7d+8GF8T95ZdfAACP\nPfYYPvjggxb5AC0pyl+BK5erjdsnCnWIvEXZwBlEROSoGgzAtm3b4vXXX8eLL76ILVu2YPfu3fjg\ngw9QUVFhcpyXlxf69u2LpKQkjBs3DgEBAc1atFTU/kp8VycAT2q0eAj2XYSXiIhaRpN6gQYGBiIx\nMRGJiYnQ6XS4cOECrl69CgAICAhA+/btIZe3/rkxzQfEsyMMEZHzsnkgm0KhQMeOHdGxY8dmKMex\nRZl1hMkq0aNCJ8JT4XpjI4mInJ1NwyCeeOIJfP311zAYDM1Vj0PzVcrQ3ru2pWsAkFnEViARkTOy\nKQC/+eYbjBs3DtHR0Xj++edx7Nix5qrLYUWrTFuBdZdJIiIi52FTAJ48eRJbtmzBgAED8P7772Pg\nwIGIi4vDa6+9hosXLzZXjQ7FYkC8hi1AIiJnZFMAyuVyDBkyBCkpKTh16hTWrFmDsLAwLFq0CL16\n9cJDDz2Ejz76CKWlpc1Vr+QYgERErcMNT4Xm7e2N8ePHY9u2bfj9998xYsQIHDp0CE899RS6deuG\n6dOnt8pbpF1vUUBep89LTrkBmirXfCZKROTMbmou0KysLCxfvhwPPvggtm3bhjZt2mD69OmYOnUq\nDh48iEGDBuHdd9+1V60OwV0uoIuf6XNAtgKJiJyPzcMgNBoNUlNT8fHHH+PHH3+EUqnE0KFDsXDh\nQgwePBgKRc0lX3jhBUybNg0rV67E9OnT7V64lKL9lThVVNv55aRGh7gQdwkrIiIiW9kUgI899hj2\n7duH6upq9O3bFytWrMDo0aPh7+9vcaybmxuGDRuGHTt22K1YR6FWKbAju3abA+KJiJyPTQH422+/\n4amnnsKjjz6KyMjIRo+/77778MUXX9xwcY4qyqwjzAmNFqIouuRiwUREzsqmAPzf//5n08XbtGmD\nu+++26ZznEEHXzk85AIq9TXLIRVVi7hcYUCYV+ufDo6IqLWwqRNMQEAAPv3003pfT01NbbUTYdcl\nFwSLadF4G5SIyLnYFICiKEIU618E1mAw3NBtwJSUFMTExCA0NBTx8fFIT0+v99ilS5dCpVIhICAA\nKpXK+CcgIAAFBQU2v/eNMh8PeII9QYmInIrNwyAaCriffvrJaoeYhqSmpmL+/PmYO3cuDh06hH79\n+mHs2LH1zizzzDPP4NSpU8jIyMCpU6dw6tQp3HXXXbjnnnsQGBho03vfDLXZlGgZGk6JRkTkTBp9\nBrh27Vq8/fbbxu358+dj4cKFFscVFRWhuLjY5pXgk5OTMXHiREyaNAkAsHz5cuzbtw8bNmzAggUL\nLI738vKCl5eXcfvChQtIT0/HunXrbHrfm2XeAszQaKEziFDI2BGGiMgZNBqAQUFBiI6OBgCcO3cO\nYWFhCAsLMzlGEAR4e3sjNjYWU6dObfKba7VaHDt2DE8//bTJ/oEDB+LIkSNNusbGjRuhUqkwfPjw\nJr+vPYR4yuDvJkBTXXNLuFIPnCvVo7OfzUMriYhIAo3+tB4zZgzGjBkDABg2bBieffZZ3HvvvXZ5\n84KCAuj1egQHB5vsDwoKwsGDBxs932AwYNOmTXj00UehVCobPd6eBEFAtEqJ73NNV4hnABIROQeb\nflrv3Lmzueq4IXv37sWlS5fw+OOPN3psZmam3d8/WO8OwMO4/X3WFURWVd7w9ZqjxubAOu3HGWoE\nWKe9sc6b15Sx6I1pMADPnz8PAGjfvr3JdmOuH9+YwMBAyOVy5OXlmezPz8+3aBVa8/777+OOO+5o\n0jfCHt8sc3f5VWHHlSLjdo7ojcjIpn12c5mZmc1So72xTvtxhhoB1mlvrNNxNBiAvXr1giAIuHz5\nMtzc3Izbjbl69WqT3lypVCI2NhZpaWkYMWKEcf+BAwcwcuTIBs+9fPky9uzZg7feeqtJ79UczGeE\nOVusQ5VehLucHWGIiBxdgwH41ltvQRAE4/O169v2lJiYiBkzZqB3796Ii4vD+vXrkZubiylTpgAA\nkpKScPToUWzfvt3kvI0bN8Lb27vRoGxO/u4ytPWS4VJ5zXJIehE4XaRDj4CWfR5JRES2azAAJ0yY\n0OC2PYwaNQqFhYVYtWoVcnNzoVarsXXrVoSHhwMAcnNzkZ2dbXHehx9+iHHjxsHDw8PitZYU5a/E\npfIq4/YJjZYBSETkBOzSZfHy5csoKipCVFTUDZ2fkJCAhIQEq68lJydb3f/rr7/e0HvZm1qlxIFL\ntQHIKdGIiJyDTTPBvPfee5g1a5bJvmeffRbdu3dH//79MWDAgBadjswRRJvPCcoZYYiInIJNAbh+\n/XqTWVgOHTqElJQUjBkzBi+++CLOnj2LlStX2r1IRxZ5i9Lkm3ihTI+SaoNk9RARUdPYFIDZ2dnG\nWWEAYNu2bQgPD8fbb7+N2bNnY9q0afjyyy/tXqQj81QI6OTHeUGJiJyNTQGo1+tNZlw5cOAA/vKX\nv0Amq7lM586dcfnyZftW6ATMb4NyZQgiIsdnUwB26NDBOEXZL7/8gqysLAwcOND4el5eHnx9fe1b\noRMwnxj7JAOQiMjh2dQLNCEhAc8++yxOnjyJS5cuITw8HEOGDDG+/v3335vcInUV0WZLI50o1EEU\nRbuPmSQiIvuxKQCnTp0KNzc37NmzB7GxsZg9e7ZxHF5hYSHy8/PrHc7QmnXyVcBdDlTpa7avVhmQ\nX2lAsKdc2sKIiKheNo8DnDx5MiZPnmyxX6VSIS0tzR41OR2FTECknxL/qzMG8GShlgFIROTAbF4R\nnqwzvw3K8YBERI7N5hbgvn37sHHjRmRlZUGj0UAURZPXBUHAsWPH7Fags1D7KwFUGLfZEYaIyLHZ\nFIBvvPEGXn75ZQQHB6NPnz7o3r17c9XldKL8LccCGkQRMnaEISJySDYF4Ntvv40BAwZg69atLb4C\nu6ML95bDVymgRFvTIi7TiThfqkcHX64QT0TkiGx6BqjRaDBixAiGnxWCIHA8IBGRE7EpAPv27YvM\nzMzmqsXpWRsPSEREjsmmAFy5ciV27tyJTz75pLnqcWpqsxZgBluAREQOy6YHVJMnT0Z1dTVmzJiB\nOXPmICwsDHK56Vg3QRDw/fff27VIZ2HeEeZ0sQ7VehFucnaEISJyNDYFYJs2bRAUFISuXbs2Vz1O\nLdBDjmBPGfIqapZD0hqAs8U6RKv4zJSIyNHYFIC7du1qrjpajWh/JfIq6qwQr9EyAImIHBBngrEz\ntcXSSOwIQ0TkiGwOwKtXr2LRokUYOnQo+vTpgx9++MG4f9myZcjIyLB7kc7EvLV3spAdYYiIHJHN\nK8LffffdeOutt6DVapGVlYWKiprpvwICApCamoqUlJRmKdRZdLtFgbpdXs6V6lGmNUhWDxERWWdT\nAL700ksQRRHff/89tm7dajEP6F//+lfjgrmuylspQwff2p6xIoBTRbwNSkTkaGwKwLS0NEybNg0d\nO3a0uthrhw4dcOnSJbsV56yizMYDnuBtUCIih2NTAFZVVcHf37/e14uKiiCTsV+NeUcYLo1EROR4\nbEortVqN7777rt7Xd+3ahV69et10Uc7OoiMMZ4QhInI4NgXgzJkzsW3bNqxcuRKFhYUAAIPBgFOn\nTmHq1Kn46aefkJiY2CyFOpMufgoo63xn8yoMKKjUS1cQERFZsGkg/NixY3HhwgUsXrwYixcvBgCM\nHj0aACCTyZCUlIQHHnjA/lU6GaVMQFc/hckYwAyNDneGyhs4i4iIWpLNi9XNmTMHY8aMwRdffIGz\nZ8/CYDCgU6dOGD58ODp27NgMJTqnaJXSJABPaLS4M9RdwoqIiKiuG1qttX379pg1a5a9a2lVos07\nwnBpJCIih9LgM0CVSoWAgACb/9gqJSUFMTExCA0NRXx8PNLT0xs9Jzk5Gf369UNISAjUajVeeeUV\nm9+3OVlbHNd83CQREUmnwRbgc889ZzHeb+fOncjIyMDAgQONq0KcPn0a+/fvR3R0NB588EGbCkhN\nTcX8+fOxevVqxMXFYd26dRg7diyOHDmC8PBwq+c8//zz2Lt3LxYuXAi1Wo3i4mLk5uba9L7Nrb2P\nHN4KAWW6mtAr0Yq4WKZHO58banQTEZGdNfjTeP78+Sbb7733Hq5evYojR46gc+fOJq+dPn0aw4cP\nR1hYmE0FJCcnY+LEiZg0aRIAYPny5di3bx82bNiABQsWWByfmZmJdevWIT093WRZpltvvdWm921u\nMkFAlL8CR6/UDoE4qdExAImIHIRNwyDeeOMNTJ061SL8AKBr166YOnUqXn/99SZfT6vV4tixY4iP\njzfZP3DgQBw5csTqOV9++SU6deqEPXv2IDY2Fr169cLMmTNx5coVWz5Ki7B2G5SIiByDTQF46dIl\nKBT1t2DkcrlNU6EVFBRAr9cjODjYZH9QUBDy8vKsnpOVlYVz585h27ZtePvtt/Huu+8iMzMT48eP\nb/L7thS1xcoQ7AhDROQobLofp1arkZKSgjFjxqBt27Ymr128eBHr169H9+7d7VqgOYPBgOrqarz7\n7rvo1KkTAOCdd97BbbfdhqNHj6JPnz5Wz8vMzGzWuqxx1woA/IzbGZpqnDiVCYXlNKoApKnxRrBO\n+3GGGgHWaW+s8+ZFRkbe9DVsCsDFixdj9OjR6Nu3Lx544AHjrdCzZ8/iq6++giiKePfdd5t8vcDA\nQMjlcovWXn5+vkWr8LqQkBAoFApj+AFAly5dIJfLcf78+XoD0B7frBsReP4KCqpqlkPSigIUIR0R\neYvlCvGZmZmS1WgL1mk/zlAjwDrtjXU6DpsCsH///vj666/x6quv4quvvjKuBejp6YmBAwdi/vz5\n6NGjR5Ovp1QqERsbi7S0NIwYMcK4/8CBAxg5cqTVc+Li4qDT6ZCVlWUceP/nn39Cr9cjIiLClo/T\nIqJVCnx3udq4fbJQZzUAiYioZdncJbF79+7YtGkTDAaDseNJmzZtbngViMTERMyYMQO9e/dGXFwc\n1q9fj9zcXEyZMgUAkJSUhKNHj2L79u0AgPj4eMTExOCpp57C4sWLIYoinn/+efTr1w+9e/e+oRqa\nk9pfaRKAJzRaDIenhBURERFwgzPBADVzf9Z3m9IWo0aNQmFhIVatWoXc3Fyo1Wps3brVOAYwNzcX\n2dnZxuMFQcDHH3+MefPmYdiwYfDw8MB9992HV1999aZraQ7mPUEzuDQSEZFDcIhBaQkJCUhISLD6\nWnJyssW+4OBg/Oc//2nusuwiymxKtD+LdajQifCsrycMERG1CK5e28x83WRo7127CoQBQGYRxwMS\nEUmNAdgCzFuBXCGeiEh6DMAWYD4g/kQhW4BERFJjALYATolGROR4GIAtoOstCsjr9HnJKTdAc21w\nPBERSYMB2ALc5QK6+Jk+B8xgK5CISFIMwBZifhv0BDvCEBFJigHYQqJV5j1B2QIkIpISA7CFWHSE\nKdRCFEWJqiEiIoeYCcYVdPCVw0MuoFJfE3qaahGXKwwI85I3cqb0nl20EucKy6AXgYqKCvh41cxl\nGqHyxooX5kpcHRHRjWEAthC5ICDKX4FfC2pvfWZotE4RgJlXSqEZOMu4XXb9LwfXSlIPEZE98BZo\nC7LoCOPgK8TnVeix8tfiejvsXCzTo5DDOYjISbEF2ILUTtIRpqjagM2Z5Uj9sxzVDeRbfqUB478u\nwLgunhjXxQs+Sv4+RUTOgwHYgqKsLI2kF0XIBcdYGaJcZ8BnZyuw5XQ5ynRN66BTqRfxwalyfJ5V\ngQldvTGykyfc5Y7xeYiIGsIAbEGhnjL4uwnQVNeES6VeRHaJHp39pP1n0BpEfJFdgY2nym/4lmZx\ntYi1f5Ti07Pl+FuUN4a294BCxiAkIsfFAGxBgiAgWqXE97m1K8Sf1GglC0C9KGLfhSr8J6MUOeXW\ng6+NhwwhoT4QD66FgJpeoO6eniioNMDDw93i+PxKA1b8WoItZ8rxRLQ37g1zh+AgLVwioroYgC0s\n2t8sAAv3gMJ2AAAdRklEQVR1+GtEy9YgiiLSc6ux7kQp/izRWz3GVylgQqQXRnXygvuQfxr3Z2Zm\nIjIyEkDNLdOtZyrw8ZlylJvdMj1fqsfLPxUjyl+BaWof3Bbk1nwfiIjoBjAAW5jaYm3Alu0I82tB\nNdb9UYb/1bMkk4ccGNPZC4909YJvI51avBQyPB7ljREdPfFRZhm2ZVVAa9aQzNDoMDddgz5tlJim\n9rFYGoqISCoMwBZm3hHmTLEOVfrmnxEms0iLlBNlOJJXbfV1hQAM6+CJSd28EOhh29hEf3cZZvX0\nxejOXnj/VBm+OlcJ8xuqR69oMfNQIQaEueOJaG908OV/ekQkLf4UamH+7jKEecmMz9z0InC6SIfm\nukF4oVSHDRll2H+xyurrAoC/tHPHlCgftPW+uUH5IV5yPBfrh0e6eGH9yTJ8k2P5nt/kVOHbnCoM\nbe+Bv0V5I8QJJgIgotaJASiBaH8lcsprw+GkRotedn6PK5V6fJBRjl3nKlBfA/POEDdMVfvYvRNO\nB18FXrn9Fpws1GLdiVL8fMX0dqsBwJfnK/H1xUqM6OiJiZHe8HfnGEIialkMQAmoVUocuFQbgCcK\ntejlZ59rl1Qb8NHpmkHsVdb7t6BXgBLT1N64NbB5O6ZEq5RYdacKP+XXdLjJMJtRRmsAPj1bgV3Z\nlXikqxfGdfGEl4JBSEQtgwEogWh/88VxdcBNBmClTsRnf5Zj8+lylGqtN/m6+CkwXe2NfsFuLTo0\n4bYgN/Rto8KhnCqknCzDuVLTZK7Qi3gvowzb/izHxEhvPNSRg+mJqPkxACUQeYsSMsDYUeR8mR5l\n9bTWGqMziNiVXYH3T5Xjaj2D2Nt6yfFEtDfuC3eHTKIxeYIgYEBbD9wZ6o49FyrxXkYZ8ipM6y2q\nFrHm99rB9IPbcTA9ETUfBqAEPBUCOvkpcKa49pZgdoUCsTZcwyCK2H+xChtOluFSufX0DHCvGabw\nYITjBIlCJuCvEZ4YFO6BHVkV2JhZhuJq0xZrboUBy46VYMvpckxV++Du0JZtsRKRa2AASiTK3zQA\n/6xsWm9IURRxJK8a606UmZxfl49SwGNdvfBwJy94KBwzONzlAsZ28cJfIzzwyZlyfHKmAhVmvXWy\nS/VY8GMR1NcG0/fhYHoisiMGoETU/krsPldp3M6qaDwAfyuoCb7jV60PYneXA6M7eWF8Vy/4ujlH\nZxJvpQxTon0wspMXPswsww4rg+lPaHT4R7oGtwXVDKY3H0tJRHQjGIASiTZbGqmhFuCZIh1STpYi\nPdf6IHb5tUHsk29gELujULnL8HRPX4zt7IX3Msqw57zlYPqf8rX4Kb8Q8W3dkRDtjQgf/udLRDfO\nIZoJKSkpiImJQWhoKOLj45Genl7vsefOnYNKpTL5ExAQgP3797dgxTevk68CdRtpRToZ8itMn+Vd\nKtNj0c9FmHrwar3hNyjcHe/fF4A5vXydNvzqCvWS45+9/bA+PgB3h1q/5Zl2qQp/O3AVK44VI6/i\nBnsPEZHLk/xX6NTUVMyfPx+rV69GXFwc1q1bh7Fjx+LIkSMIDw+3eo4gCEhNTUWPHj2M+1QqVUuV\nbBcKmYButyhN5uQ8qdEhyFOOgko9Np4qxxfZ9Q9ijwt2wxNqb0Te0jpvB3byU2BRP3/8frVmMP2x\nArPB9CKw61wl9lyoxKhOnpgQ6Y1bnOS2LxE5BskDMDk5GRMnTsSkSZMAAMuXL8e+ffuwYcMGLFiw\nwOo5oijC398fQUFBLVmq3UWrFCYB+FN+NTI0Wnx6thyV9TRsegYoMV3tjV7NPIjdUfQIUOLfd/pf\nG0xfhlNFloPpPzlTO5h+TGcOpieippE0ALVaLY4dO4ann37aZP/AgQNx5MiRBs+dNGkSKisr0aVL\nF8ycORMjRoxozlKbxeFNa5CTU2rcfvvaV5nSHSHDnzQ5trOvHFPVPugf4npDAgRBwO3B7ugb5IZv\ncqqw/kQZzpsNnCzTiViyYjWW6aoQ4iWHl1gFb09PAECEyhsrXpgrRelE5MAkDcCCggLo9XoEBweb\n7A8KCsLBgwetnuPj44NFixYhLi4Ocrkcu3fvRkJCAt5++22MHTu2Jcq2m/KKSoQ9/IzF/pzUN4x/\nD/OSISHaBwPD3SF3seAzJxMExLf1wN2h7vjqfM1g+iuVtV1lDNoqhDz8DAwASq/9AYCMHW9izuFC\n+Chk8HUT4KMQ4KOUwUdZ96sA3zr7PORwuV80iFyN5LdAbRUQEIDExETjdmxsLAoLC/H66687XQA2\nNN2Xyl2Gyd28MKyDJ5QOMojdUShkAoZ18MTgdh74/M8KbMosQ3E9078BQIVOxC9XbFt3USHAJCB9\n6wSleXj6WjmO/2ZEjk/SAAwMDIRcLkdeXp7J/vz8fItWYUP69OmDTZs2NXhMZmbmDdXYnCoqKqzu\nb6M0YGHHQrjrCpF1poWLagJH+l72ARDdCdhT4I4NdryuTgQ01SI01TfWy9RNEOEpF+ElE+FV5+uP\nn6agoqoacgAyAVAIIpQCEO6jwPwnJ9vxE9iXI/2bN4R12pcj1xkZGXnT15A0AJVKJWJjY5GWlmby\nDO/AgQMYOXJkk6/z22+/ISQkpMFj7PHNsjdPT08UW9nfzs8dPaMcr16g5n8IR/xexgBI/1SJq1IX\nck21KKBaJ6DIbH9OqQ5hD882bhsAVAH4LvUN/D3TH8GeMgR5yBHsKUOwZ83XoOtfPeTwlGBmH0f9\nNzfHOu3LWeq8GZLfAk1MTMSMGTPQu3dvxMXFYf369cjNzcWUKVMAAElJSTh69Ci2b98OANi8eTOU\nSiV69eoFmUyGL7/8Ehs2bEBSUpKUH4McgLKezp/dblHgpf7+KNUaUKoVUao1oEQrGv9eqhVRYnyt\n5u/ms9G0hHKdiKwSPbJK6m91+ioFBHvKEeQpQ7AxKE1D0o0raRA1ieQBOGrUKBQWFmLVqlXIzc2F\nWq3G1q1bjWMAc3NzkZ2dbXLOypUrceHCBchkMnTt2hVr1qzBmDFjpCj/pkSovIGDawHU3A71rNNr\nkWxX7/czyAe32TiPaJVerBOYovXw1BlQUn3tNZ1oEqSG+h9J3pQSrYgSrQ5nrN06uEblJhgDMdhT\njiAPWW1oesrRxkPmMJOjE0lJ0Gg0zfS/KtnCWW43sM7GiaKICr1oEZ4lWgOWLV0Kw9BEi3Mup76B\nUCs9gpuDDECAh8ysFVkbkMGeMixduRrnC8sBWP5y5qhDSvjfpn05S503Q/IWIFFrIwgCvBQCvBRA\nsKfpaxs8ZMi1ck5MoBLvDG2DvAo98ioMyKvUI7/CULtdoceVSkO9MwPZwgDgSqUBVyoNOAHrK4pc\nPl1kEsjXG5y5X63BF1kVJj1i6/aCZcuSnAkDkKgFNXTb299dBn93Gbr5Wz9XL4oorDIYA9EkIK8F\n5tVKg8Uk4jeivpzNKddj1W8l9Z7nIUeTholcH4tZMy6zZp+XUnD5sa7UshiARC2o7u1DW28xyQUB\nbTzkaOMhR3eV9TlgdQYRBZXXgrHSgPw6Lci8iprtwurme+pRqQcq9QZcqQQA24aQCAC8FEK94Vnb\n2qzdt/b115BbUgG5AFRVVsDLCW7VkuNgABK1IgqZgBAvOUK86l8ZpEov4kplbSDWBKTpbdecFqz5\nOhE1U9qV6UTkVjStHZtzrthkNqXrbdOT299E6TdX4am4fjtaBi+FAE+FAO9r+2pfq33dq85rvJ3b\n+jEAiVyMu1xAuLcC4Q10Nh67V4l8K/uDPGX4a4SH1Z6xZVrRLrdf7aFSL+KExvrzzaZyk8FqQJoG\nZ9NeW7B0Jc45WaciV8AAJCILHQO8IbP2rDLcD8/F+lk9xyCKqDAbDmI6dKR2uIi1ISZlOsfqkF5t\nAKqrRWiqReAmoz3ndJFJS/V6p6IzX7yJF37QwEMuwF0uWPla8wuLh6J2v+kxMG6zxWo7BiARWbiR\nZ5UyQYC3UoC3EgiB7Ysz6wwiynVWQlNrHqrXgrRaRKGTD/ov0Yr49rL1xa5tpRBgGZ4Ka6FqGpx1\nv76f/DoKSisgCIC2qgqeHu4QBKD9Ld5Y9Pz/wU0mwE2OVtNZiQFIRA5BIRPg5ybAzw1AEwP0kc8V\nVoeVRPsrsPhuFcp1BpTraoK14trXsjp/v/56xbX9dY9zrPZo43QioNPdXEs651KJSUv1ejSfSH0D\nx7+6YtwvF2AMw5qvAtxlgJtcsNhvsm3xGq6da7rd0Dn/WrIS5wvL8fGql274c17HACQip1XvsJI2\nPugRYL2nbFOIoohKPUwCtNwkOE0DtLHXWhu9CFToRVTogfoHzTQP89vJN4MBSERO62aGlTREEAR4\nKgBPhRyBdrjeuANK5FnZ39lPgfm3+aFSX9M7t1IvWvmKevaLtefpHKcDkjNhABIRNbMOKm8I1lqq\nwT4Y0Nbjpq8viiJ0Yp2g1NUGZ6PhWWf/Tjfrz/aUMsBPKaDaUHPd1tKmZQASETWz5mqpXicIApQC\noJQJ8L3xO7/43df6M9UeKiU+fiAIQE3Y6kUYw7BaL6LaIKJaX7Ov5u9iTS9a89eu77/296qmnGN2\nvj0xAImICEDTVqgRBAEKoabTkpcECfLIAaXVkL4RDEAiIgLQ/C1VezCG9EPsBUpERC7EnjPn1LOG\nNhERUevGACQiIpfEACQiIpfEACQiIpfEACQiIpfEACQiIpfEACQiIpfEACQiIpfEACQiIpfEACQi\nIpfEACQiIpfEACQiIpfEACQiIpfEACQiIpfkEAGYkpKCmJgYhIaGIj4+Hunp6U0678yZM2jXrh3a\nt2/fzBUSEVFrI3kApqamYv78+Zg7dy4OHTqEfv36YezYsbh48WKD52m1WjzxxBO46667WqhSIiJq\nTSQPwOTkZEycOBGTJk1CZGQkli9fjpCQEGzYsKHB81588UX07NkTI0aMaKFKiYioNZE0ALVaLY4d\nO4b4+HiT/QMHDsSRI0fqPe+///0v9u7di+XLlzdzhURE1FpJGoAFBQXQ6/UIDg422R8UFIS8vDyr\n5+Tk5GD27NlYt24dvLy8WqJMIiJqhSS/BWqrJ598Ek888QR69+4NABBFUeKK7CMyMlLqEpqEddqP\nM9QIsE57Y52OQ9IADAwMhFwut2jt5efnW7QKrzt06BCWLVuGNm3aoE2bNnjmmWdQWlqKoKAgfPDB\nBy1RNhERtQIKKd9cqVQiNjYWaWlpJp1ZDhw4gJEjR1o9x3yIxK5du7B69Wrs378foaGhzVovERG1\nHpIGIAAkJiZixowZ6N27N+Li4rB+/Xrk5uZiypQpAICkpCQcPXoU27dvBwBER0ebnH/06FHIZDJE\nRUW1eO1EROS8JA/AUaNGobCwEKtWrUJubi7UajW2bt2K8PBwAEBubi6ys7MlrpKIiFobQaPRtI5e\nJERERDZwul6gTXX48GGMHz8e3bt3h0qlwubNm6UuycLq1asxcOBAREREoGvXrnj00Udx4sQJqcuy\nkJKSgrvuugsRERGIiIjAkCFDsGfPHqnLatDq1auhUqnw3HPPSV2KiaVLl0KlUpn8Mb+t7yhyc3Mx\nc+ZMdO3aFaGhoejfvz8OHz4sdVkmevXqZfH9VKlUeOSRR6QuzchgMGDRokXG6R5jYmKwaNEiGAwG\nqUuzUFpain/+85+49dZbERYWhvvvvx+//PKLpDU15Wf5kiVLoFarERYWhmHDhuHkyZNNunarDcCy\nsjL06NEDS5cuddjxgocPH8a0adOwZ88efPHFF1AoFBg5ciQ0Go3UpZkIDw/HK6+8gm+++QZpaWkY\nMGAAJkyYgD/++EPq0qz68ccf8f7776Nnz55Sl2JVt27dkJmZiVOnTuHUqVMOFyoAUFRUhKFDh0IQ\nBHz66af44YcfsGzZMgQFBUldmom0tDTj9/HUqVM4ePAgBEHAww8/LHVpRv/+97+xYcMGrFixAj/+\n+COWLVuG9evXY/Xq1VKXZuHpp59GWloa3nnnHaSnpyM+Ph4jRozA5cuXJaupsZ/lr732GtauXYsV\nK1bgwIEDCAoKwqhRo1BWVtbotV3iFmi7du2wYsUKjB8/XupSGlRWVoaIiAh89NFHGDp0qNTlNKhT\np054+eWX8fjjj0tdiomioiLEx8fjzTffxNKlS9G9e3eHmjFo6dKl2LFjh0OGXl2vvPIK0tPT8eWX\nX0pdik1WrlyJt956CxkZGXB3d5e6HADAI488gsDAQCQnJxv3zZw5E4WFhdiyZYuElZmqrKxEu3bt\n8OGHH+L+++837o+Pj8fgwYPxr3/9S8Lqalj7WR4dHY0nn3wSc+bMAVDzOSIjI7Fo0aJGfz612hag\nMyopKYHBYIC/v7/UpdTLYDDgs88+Q3l5Ofr16yd1ORZmz56NUaNG4e6775a6lHplZ2dDrVYjJiYG\nTzzxBLKysqQuycLu3bvRt29fJCQkIDIyEvfccw/WrVsndVmN+vDDD/HII484TPgBQP/+/XHo0CFk\nZmYCAE6ePIlDhw453C+5Op0Oer3e4nvn6emJ77//XqKqGpaVlYXc3Fzcd999xn0eHh648847G5xO\n8zrJe4FSrX/+85+IiYlxyGD5448/MGTIEFRWVsLHxwcffvgh1Gq11GWZeP/995GVlYX169dLXUq9\nbr/9diQnJyMyMhL5+flYsWIFhg4diiNHjjjULz7Xv4+zZs3CnDlzcPz4cTz33HMQBAFTp06Vujyr\n9u/fj3PnzjncXYnZs2ejtLQUd9xxB+RyOfR6Pf7v//7PONTLUfj4+KBfv35YsWIFoqOjERISgq1b\nt+KHH35Aly5dpC7Pqry8PAiCYHFrPigoqEm3bRmADuL555/HDz/8gK+++gqCIEhdjoVu3brh22+/\nRVFREXbs2IEZM2Zg165dDtOB4/Tp01i4cCH++9//QiZz3BsbgwYNMtm+/fbbERMTg48++gizZs2S\nqCpLBoMBffv2xYIFCwAAt956K86cOYOUlBSHDcD3338fffr0Qffu3aUuxcRnn32GLVu2YMOGDYiK\nisLx48cxb948dOjQARMnTpS6PBPvvPMOnnrqKXTv3h0KhQIxMTEYM2YMfv31V6lLaxaO+5PChcyf\nPx/btm3DF198gYiICKnLsUqhUKBjx46IiYnBggULcOutt5o805DaDz/8gKtXr+KOO+4wTpP33Xff\nISUlBUFBQdBqtVKXaJWXlxeio6Nx9uxZqUsxERISgm7dupns69atGy5cuCBRRQ27cuUKvvzyS4dr\n/QHASy+9hGeeeQYjR46EWq3GuHHjkJiYiH//+99Sl2ahY8eO2LlzJy5duoTff/8dX3/9NbRaLTp0\n6CB1aVYFBwdDFEXk5+eb7G9oOs26GIASmzdvnjH8HPU2gzUGgwFVVVVSl2E0bNgwHD58GN9++63x\nT+/evTFmzBh8++23UCqVUpdoVWVlJTIzMxESEiJ1KSbi4uKMz6yuy8zMRPv27SWqqGGbNm2Ch4cH\nRo8eLXUpFsrLyy3uSshkMoccBnGdp6cngoODodFosG/fPjz44INSl2RVx44dERISggMHDhj3VVZW\nIj09HXFxcY2e32pvgZaVleHs2bMQRREGgwEXLlzA8ePHoVKp0K5dO6nLAwDMnTsXn3zyCTZt2gQ/\nPz/jpODe3t7w9vaWuLpaSUlJGDJkCMLDw1FaWoqtW7fiu+++w9atW6UuzcjPzw9+fn4m+7y8vODv\n7+9Q0+QtWLAA999/P9q1a2d8BlheXu5wPZRnzZqFoUOHYtWqVXj44Yfx66+/4t1338XLL78sdWlW\nbdy4EaNHj3bIIU/3338/XnvtNURERCA6Ohq//vorkpOT8dhjj0ldmoX9+/fDYDAgMjISZ8+exYsv\nvojo6GhMmDBBspoa+1k+c+ZMrF69Gl27dkWXLl2wcuVK+Pj4NOmXoVY7DOLbb7/F8OHDLZ6njR8/\nHmvWrJGoKlMqlcrq87558+Zh3rx5ElRk3axZs/Dtt98iLy8Pfn5+6NGjB/7+979bLGTsaIYPHw61\nWu1QwyCeeOIJpKeno6CgAG3atMFtt92Gf/3rXxa3Gx3B3r17kZSUhDNnzqBdu3aYPn06pk2bJnVZ\nFg4dOoQRI0Zg//79iI2NlbocC2VlZXj11Vexc+dOXLlyBSEhIRg9ejSee+45uLm5SV2eic8//xxJ\nSUnIycmBSqXCQw89hBdeeAG+vr6S1dSUn+XLli3De++9B41Gg759+2LlypVN6p/QagOQiIioIXwG\nSERELokBSERELokBSERELokBSERELokBSERELokBSERELokBSERELokBSCShmTNnIjQ0VOoyiFwS\nA5BIQoIgOOTqH0SugAFIREQuiQFIREQuiQFIdBOWLFkClUqF06dPY+bMmejQoQMiIiKQmJiIysrK\nJl8nJycHjz32GNq1a4euXbtiwYIFEEXTaXorKiqwYMEC9OzZEyEhIejbty9ee+01k+POnTsHlUqF\nzZs3W7yHSqXCsmXLjNtlZWV44YUXEBMTg5CQEHTt2hXDhg1Denq6yXlHjx7F2LFjERERgbCwMDzw\nwAM4dOiQyTFNvRaRI2m1yyERtYTrz+8SEhLQqVMnvPzyy/j111/xwQcfIDg4GC+99FKj19Dr9Rg9\nejRuu+02LFq0CGlpaVizZg06d+6MKVOmGI977LHHcPDgQUyaNAkxMTE4ePAgkpKScP78eaxatcrm\n2ufMmYMdO3Zg2rRpiIqKgkajwc8//4z//e9/6N+/P4CamfjHjBmDXr16Yd68eVAqlfj444/x8MMP\n4/PPP8ddd93V5GsRORoGIJEdxMbG4o033jBuFxQUYOPGjU0KQJ1Oh4cffhhz584FAPztb3/Dvffe\ni40bNxoDcPfu3UhLS8Pzzz+PZ599FkBN6CYmJuI///kPpk2b1qTlX+ras2cPJk+ejIULF9Z7zD/+\n8Q/ceeedSE1NNe5LSEjAPffcg4ULF+Krr75q8rWIHA1vgRLdJEEQMHnyZJN9/fv3x9WrV1FaWtqk\na1g7Pysry7i9d+9eyOVyPPnkkybHPfXUUxBFEXv27LG5bj8/P/z888/Iycmx+vrx48eRmZmJ0aNH\n4+rVq8Y/RUVFiI+Px08//WS8zdvYtYgcEVuARHbQrl07k21/f38AgEajgY+PT4PnKpVKBAcHW5yv\n0WiM2+fPn0dwcLDFqveRkZGQyWQ4d+6czTUvXLgQs2bNQs+ePdGrVy8MGjQIjz76KLp27QoAOHPm\nDICakLVGEARcvXoVbdu2bfRaRI6IAUhkB3K53Op+844s1shk9rsRU9+YQoPBYLFvxIgRuPPOO7F7\n927s378f7777Lt544w2sXbsWo0ePNp7zyiuvoFevXlav26ZNmyZdi8gRMQCJnED79u2RlpaGkpIS\n+Pr6GvdnZmbCYDAgIiICQG3Ls6ioyOT8+lqIQUFBePzxx/H444+juLgYf/nLX7BkyRKMHj0anTp1\nAgB4e3vj3nvvbbTGhq5F5Ij4DJDICQwdOhR6vR7vvPOOyf41a9ZAEAQMGTIEAODr64vAwEAcPnzY\n5LiUlBST1qHBYEBxcbHJMX5+fujQoYMxPGNjY9G5c2esWbPG6rPMgoKCJl+LyBGxBUjkBO6//37c\nd999WLJkCc6dO2ccBrFz504kJCSY9ACdPHky/v3vf+OZZ55B7969cfjwYZw5c8bkdmxJSQm6d++O\n4cOHo2fPnvDz80N6ejr27duH6dOnA6i5nfrmm29i7NixiIuLw4QJExAeHo6cnBx89913AIAdO3Y0\n6VpEjogBSCSx+p7bme/ftGkTlixZgtTUVHz88cdo164dXnrpJTzzzDMmxz333HMoKCjA9u3b8fnn\nn2PIkCH49NNP0bVrV+M1vby8MG3aNBw4cABfffUVdDodIiIisGjRIsyYMcN4rTvvvBN79+7FihUr\nsGHDBpSUlCA4OBh9+vQx9lxt6rWIHI2g0Wgaf0pPRETUyvAZIBERuSQGIBERuSQGIBERuSQGIBER\nuSQGIBERuSQGIBERuSQGIBERuSQGIBERuSQGIBERuSQGIBERuaT/BzIeycDmZPJkAAAAAElFTkSu\nQmCC\n"",
-      ""text/plain"": [
-       ""<matplotlib.figure.Figure at 0x1120519e8>""
-      ]
-",10
-"      ""11 Train loss: 0.2929235\n"",
-      ""12 Train loss: 0.23225449\n"",
-      ""13 Train loss: 0.23180929\n"",
-      ""14 Train loss: 0.19877923\n"",
-      ""15 Train loss: 0.20065464\n"",
-",10
-"
-```
-{{ ""Hugo is a static site generator."" | countwords }}
-<!-- outputs a content length of 6 words.  -->
-```
-",11
-"				loc: SourceLocation esprima/declaration-function/migrated_0001/input.js 1:9-1:13 (eval)
-			}
-			loc: SourceLocation esprima/declaration-function/migrated_0001/input.js 1:0-1:19
-			body: JSBlockStatement {
-				body: Array []
-",11
-"      name
-    }
-  }
-}
-```
-",11
-"## --after-user-code--
-
-```js
-(function(z){return z;})(myDog);
-```
-",11
-"## Questions
-
-For questions and support please use the official [Discord channel](https://discord.gg/G7Qnnhy). The issue list of this repo is **exclusively** for bug reports and feature requests.
-
-## Issues
-",11
-"    }
-}
-
-sshfs ""fileshare@${FileshareMachine}:/Users/fileshare/share"" $mountPoint
-if ($LASTEXITCODE -eq 1) {
-",12
-"            if ( $IsCoreCLR ) { return } # no COM on core
-            $scriptPath1 = Join-Path $TestDrive SBPShortPathBug133807.DRT.tmp.ps1
-            $scriptPath1 = Setup -f SBPShortPathBug133807.DRT.tmp.ps1 -Content '
-            1..3 |
-            ForEach-Object { $_ } | sort-object |
-",12
-"    },
-    @{
-        ExpectedResults = @(
-            @{CompletionText = ""string""; ResultType = ""Type""}
-            )
-",12
-"
-        It ""Verifies that a reused InitialSessionState object created from a TypeTable object does not have duplicate types"" {
-
-            { $rs2.Open() } | Should -Not -Throw
+            // Process is complete.
+            //alert('Success: ' + documentOk + '  Failed: ' + documentFail);
+            document.location.href = '?m=import&a=massImport&step=3';
+            return;
         }
-",12
-"if ($text -ne """") {
-	$text_box = New-Object System.Windows.Forms.TextBox
-	$text_box.Multiline = $true
-	$text_box.ReadOnly = $true
-	$text_box.Autosize = $true
-",12
-")
-import pandas._testing as tm
-from pandas.core.base import SpecificationError
-from pandas.core.groupby.base import transformation_kernels
-from pandas.tests.frame.common import zip_frames
-",13
-"#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an ""AS IS"" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-",13
-"        ),
-    )
-    address = graphene.Field(
-        Address,
-        id=graphene.Argument(
-",13
-"""""""Examples of SavedModel export for tf-serving.""""""
 
-from absl import app
-from absl import flags
-import tensorflow as tf
-",13
-"                self.source_hash = compute_hash(source)
+        parseDocument();
+    }
 
-            self.parse_inline_configuration(source)
-            if not cached:
-                self.tree = manager.parse_file(self.id, self.xpath, source,
-",13
-"        end
-        result.should == ""*\n""
+    var d = new Date();
+    parseSent = d.getTime();
+    setTimeout('startDocumentParsing()', 10);
+}
+
+function deleteUploadFiles()
+{
+    var ajaxObj;
+    var url = '?m=import&a=massImport&step=99';
+
+    try
+    {
+        // Firefox, Opera 8.0+, Safari
+        ajaxObj = new XMLHttpRequest();
+    }
+    catch (e)
+    {
+        // Internet Explorer
+        try
+        {
+            ajaxObj = new ActiveXObject(""Msxml2.XMLHTTP"");
+        }
+        catch (e)
+        {
+            try
+            {
+                ajaxObj = new ActiveXObject(""Microsoft.XMLHTTP"");
+            }
+            catch (e)
+            {
+                alert(""Your browser does not support AJAX!"");
+                return false;
+            }
+        }
+    }
+    ajaxObj.onreadystatechange = function()
+    {
+        if (ajaxObj.readyState == 4)
+        {
+            var obj = document.getElementById('uploadQueue');
+            if (obj)
+            {
+                obj.style.display = 'none';
+            }
+        }
+    }
+
+    ajaxObj.open(""GET"",url,true);
+    ajaxObj.send(null);
+}
+
+function parseDocument()
+{
+    var ajaxObj;
+    var d = new Date();
+    
+    var url = parseURL + '&name=' + urlEncode(documentName[currentDocument])
+        + '&realName=' + urlEncode(documentRealName[currentDocument])
+        + '&ext=' + urlEncode(documentExt[currentDocument])
+        + '&type=' + urlEncode(documentType[currentDocument])
+        + '&cTime=' + urlEncode(documentCTime[currentDocument]);
+
+    // FIXME: USE CATS AJAX CODE!
+    try
+    {
+        // Firefox, Opera 8.0+, Safari
+        ajaxObj = new XMLHttpRequest();
+    }
+    catch (e)
+    {
+        // Internet Explorer
+        try
+        {
+            ajaxObj = new ActiveXObject(""Msxml2.XMLHTTP"");
+        }
+        catch (e)
+        {
+            try
+            {
+                ajaxObj = new ActiveXObject(""Microsoft.XMLHTTP"");
+            }
+            catch (e)
+            {
+                alert(""Your browser does not support AJAX!"");
+                return false;
+            }
+        }
+    }
+    ajaxObj.onreadystatechange = function()
+    {
+        if (ajaxObj.readyState == 4)
+        {
+            if (ajaxObj.responseText == 'Ok')
+            {
+                documentOk++;
+            }
+            else
+            {
+                documentFail++;
+            }
+            parsingBlock = false;
+            setProgressBar(Math.floor(currentDocument / (documentName.length-1) * 100.0), documentRealName[currentDocument]);
+            currentDocument++;
+        }
+    }
+
+    ajaxObj.open(""GET"",url,true);
+    ajaxObj.send(null);
+    parsin     ""supsetneqq"":""\u2ACC"",
+    ""supsim"":""\u2AC8"",
+    ""supsub"":""\u2AD4"",
+    ""supsup"":""\u2AD6"",
+    ""swarhk"":""\u2926"",
+                 unPatchEnvironment() // return everything to how it was in case something weird's happening afterwards
+
+            })
+        })
+    })
+","    ""Recently I was asked a question I hadn't thought about in decades: \n"",
+    ""\n"",
+    ""> *As a student, did you ever get a bad grade on a programming assignment?* \n"",
+    ""\n"",
+    ""I've forgotten most of my assignments, but there is one I do remember. It was something like this:\n"",
+    ""cell_type"": ""markdown"",
+   ""metadata"": {
+    ""id"": ""X2Xjjvd-l8NL""
+   },
+   ""source"": [
+    },
+   ""file_extension"": "".py"",
+   ""mimetype"": ""text/x-python"",
+   ""name"": ""python"",
+   ""nbconvert_exporter"": ""python"",
+     ""\n"",
+    ""The `size` argument also solves the annoying case where you may have many variables $\\beta_i, \\; i = 1,...,N$ you wish to model. Instead of creating arbitrary names and variables for each one, like:\n"",
+    ""\n"",
+    ""    beta_1 = pm.Uniform(\""beta_1\"", 0, 1)\n"",
+    ""    beta_2 = pm.Uniform(\""beta_2\"", 0, 1)\n"",
+     ""\n"",
+    ""# TensorFlow ≥2.4 is required in this notebook\n"",
+    ""# Earlier 2.x versions will mostly work the same, but with a few bugs\n"",
+    ""import tensorflow as tf\n"",
+    ""from tensorflow import keras\n"",
+","#### SourceNode.prototype.setSourceContent(sourceFile, sourceContent)
+
+Set the source content for a source file. This will be added to the
+`SourceMap` in the `sourcesContent` field.
+
+ void main() {
+    StringBuffer s;
+    Writer<StringBuffer> writer(s);
+    
+    writer.StartObject();
+ dresden-weekly.Rails/nginx/server
+=======================
+
+Install, configure and store facts about Nginx
+
+Requirements
+------------
+
+* Ubuntu 12.04 (Precise)
+* Ubuntu 14.04 (Trusty)
+* CentOS 7
+
+Dependencies
+------------
+
+none
+
+Facts
+-----
+
+* **NGINX_SERVICE_NAME** - name of the nginx service for later restarts
+* **NGINX_USER** - system user that nginx runs as
+* **NGINX_CONFIG_INCLUDE_PATH** - path for extra configuration files
+* **NGINX_SITES_AVAILABLE_PATH** - path where site configurations are located
+* **NGINX_SITES_ENABLED_PATH** - path for symbolic links of enabled sites
+ - Against account in General Ledger will show Party instead of Account (which is not useful)
+- Print format for recurring documents can be set by the users
+- Recurring documents won't be created for Stopped Sales / Purchase Orders.
+- Lead status will be changed to 'Opportunity' when Lead converted to Opportunity
+- Amount in Journal Entry list view
+- Currency exchange rate is now automatically fetched from fixer.io, instead of jsonrates.com
+- Item image is now available in Sales / Purchase Invoice val/generalized_rcnn/model_final.pkl"">model</a>&nbsp;|&nbsp;<a href=""https://dl.fbaipublicfiles.com/detectron/37731142/12_2017_baselines/keypoint_rcnn_X-101-64x4d-FPN_s1x.yaml.16_41_54.e1sD4Frh/output/test/keypoints_coco_2014_minival/
+generalized_rcnn/bbox_keypoints_coco_2014_minival_results.json"">boxes</a>&nbsp;|&nbsp;<a href=""https://dl.fbaipublicfiles.com/detectron/37731142/12_2017_baselines/keypoint_rcnn_X-101-64x4d-FPN_s1x.yaml.16_41_54.e1sD4Frh/output/test/ke
+ypoints_coco_2014_minival/generalized_rcnn/keypoints_keypoints_coco_2014_minival_results.json"">kps</a></sub></sup></td>
+</tr>
+<tr>
+","    }
+
+    It ""Should join numeric values Formatted"" {
+        $testValues = 1.2, 3.4, 5.6
+        $expected = $testValues.Foreach{""{0:N2}"" -f $_} -join ""; ""
+                 Write-Host $line -ForegroundColor Gray
+            }
+            $script:nonewline = $false
+        }
+    }
+                   ""removing it and recreating it"")
+      $hns_endpoint | Remove-HnsEndpoint
+      $hns_endpoint = $null
+    }
+    else {
+ function Assign-BuildToChannel([int]$BuildId, [int]$ChannelId) {
+  Validate-MaestroVars
+
+  $apiHeaders = Create-MaestroApiRequestHeaders -AuthToken $MaestroApiAccessToken
+  $apiEndpoint = ""$MaestroApiEndPoint/api/channels/${ChannelId}/builds/${BuildId}?api-version=$MaestroApiVersion""
+         $reqMod = Get-Module -Name $requiredModule
+
+        $mainMod.Name | Should -BeExactly $mainModule
+        $mainMod.RequiredModules[0].Name | Should -Be $requiredModule
+        $reqMod.Name | Should -BeExactly $requiredModule
+","  if use_normalized_coordinates:
+    (left, right, top, bottom) = (xmin * im_width, xmax * im_width,
+                                  ymin * im_height, ymax * im_height)
+  else:
+    (left, right, top, bottom) = (xmin, xmax, ymin, ymax)
+         return self.__get_tax_code_from_object_meta(obj)
+
+    def __get_tax_code_from_object_meta(
+        self, obj: Union[""Product"", ""ProductType""]
+    ) -> ""TaxType"":
+ 
+def is_out_of_place(filepath):
+    if filepath.startswith(""torch/""):
+        return False
+    if filepath.startswith(""tools/autograd/templates/""):
+                 euler_b = rotations.quat2euler(quat_b)
+                euler_a[2] = euler_b[2]
+                quat_a = rotations.euler2quat(euler_a)
+
+            # Subtract quaternions and extract angle between them.
+       """""")
+    uwlines = yapf_test_helper.ParseAndUnwrap(code)
+    uwline = unwrapped_line.UnwrappedLine(0, _FilterLine(uwlines[0]))
+    uwline.CalculateFormattingInformation()
+
+","        'uri'     => '/FSF/CMD',
+        'version' => '1.1',
+        'method'  => 'POST',
+        'ctype'   => ""text/xml"",
+        'data'    => message
+       def sanitize_file_name(file_name)
+        file_name.gsub(self.working_directory + ""/"", """")
       end
 
-      it ""does not create an argument array with shell parsing semantics for whitespace on Windows"" do
-",14
-"            expect { subject }.to change { ReportNote.count }.by(1)
-            expect(report.reload).not_to be_action_taken
-            expect(subject).to redirect_to admin_report_path(report)
-          end
-        end
-",14
-"    end
-  end
+      def currently_used_team_id
+         if !second_factor_authentication_result.ok
+          user_error_key = second_factor_authentication_result.reason == ""invalid_security_key"" ? :user_second_factors : :security_keys
+          @user.errors.add(user_error_key, :invalid)
+          @error = second_factor_authentication_result.error
+        else
+           [] end
+             ^^^ Place the end statement of a multi-line method on its own line.
+        def another_method
+          {} end
+             ^^^ Place the end statement of a multi-line method on its own line.
+ require_relative 'tzinfo/country'
+require_relative 'tzinfo/country_timezone'
 
-  context ""localized_build_info"" do
-    it ""accepts valid values"" do
-",14
-"      topics.each do |thread|
-        topic_id = ""thread-#{thread[""postid""]}""
-        topic = topic_lookup_from_imported_post_id(topic_id)
-        if topic.present?
-          title_slugified = slugify(thread[""title""], false, 50) if thread[""title""].present?
-",14
+require_relative 'tzinfo/format2'
+require_relative 'tzinfo/format2/country_definer'
+","            }
+            Selection::Condition(selection) => {
+                if let Some(Some(existing_selection_map)) = selection_map.0.get_mut(&identifier) {
+                    self.transform_condition(selection, existing_selection_map)
+                        .map(Selection::Condition)
+ pub enum DedicatedWorkerControlMsg {
+    /// Shutdown the worker.
+    Exit,
+}
+
+         unsafe { &(*(0 as *const pthread_rwlock_t)).__data as *const _ as usize },
+        0usize,
+        concat!(
+            ""Alignment of field: "",
+            stringify!(pthread_rwlock_t),
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
+
+use servo_atoms::Atom;
+ type MakeFooFn = for<'a> fn(&'a u8) -> Box<dyn Foo + 'a>;
+
+fn make_foo(x: &u8) -> Box<dyn Foo + 'static> {
+    Box::new(())
+}
+","	git add two three four five &&
+	git commit -m Second &&
+
+	git checkout main &&
+	echo other >two &&
+ 
+echo ""Create '$LANG' test cases for gRPC release '${RELEASE:=master}'""
+
+# Clean up
+function cleanup {
+ #!/bin/bash
+
+cd ""$(dirname ""${BASH_SOURCE[0]}"")"" \
+    && . ""../../utils.sh""
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+print_info "" UI & UX""
+
+execute ""gsettings set com.canonical.indicator.bluetooth visible false"" \
+    ""Hide bluetooth icon from the menu bar""
+
+execute ""gsettings set com.canonical.indicator.sound visible false"" \
+    ""Hide volume icon from the menu bar""
+
+execute ""gsettings set com.canonical.indicator.power icon-policy 'charge' && \
+         gsettings set com.canonical.indicator.power show-time false"" \
+    ""Hide battery icon from the menu bar when the battery is not in use""
+
+execute ""gsettings set com.canonical.indicator.datetime custom-time-format '%l:%M %p' && \
+         gsettings set com.canonical.indicator.datetime time-format 'custom'"" \
+    ""Use custom date format in the menu bar""
+
+execute ""gsettings set org.gnome.desktop.background picture-options 'stretched'"" \
+    ""Set desktop background image options""
+
+execute ""gsettings set org.gnome.libgnomekbd.keyboard layouts \""[ 'us', 'ro' ]\"""" \
+    ""Set keyboard languages""
+
+execute ""gsettings set com.canonical.Unity.Launcher favorites \""[
+            'ubiquity-gtkui.desktop',
+            'nautilus-home.desktop'
+         ]\"""" \
+    ""Set Launcher favorites""
+ set -ex
+
+outdir=`pwd`
+
+tmpdir=`mktemp -d`
+ ""
+    tag_pr 1
+    git checkout master
+    merge_pr feature 1 ""PR title""
+)
+","2014102502	product_2	pty_country_35
+2014102502	product_3	pty_country_12
+2014102502	product_1	pty_country_2
+2014102502	product_4	pty_country_42
+2014102502	product_1	pty_country_42
+ sad to see [NAME] the man go but realy happy for [NAME]!!	17,25	ee98m1w
+You still look cranky, goodnight.	27	eczdhfb
+If you like this than go watch My Self Reliance on YouTube. Start from the beginning. Very relaxing and fun.	4	eeozh3g
+I love that OP “loved” his insult. It’s like the ultimate slap in the face to this CB.	27	ee95nci
+No, i'm arguing that if she calls someone disgusting for how they act it's wrong to act like the other person is an asshole for retaliating. 	3	ef92h73
+ The cruelest people in the room are a pack of gormless dullards. It's the banality of evil for the 21st century.	11	ef5lhwg
+Yes. We're finishing the script out now. Shooting starts in February.	27	ed4jqtd
+[NAME] was actually wrong all along. JAH > Jokic /s	10	efeq3nv
+i love this subreddit	18	edmt2iq
+Omg yes!	4	eejyd2o
+ 84	Indiana	10	Midwest	0	0	1	0	0	0	0	0	0	--	2015-03-21 20:11:29.410000
+2305	Kansas	2	Midwest	0	1	1	1	0.569568177733	0.308001662831	0.0712131934274	0.0291741854267	0.0131577242858	75.0009845382	2015-03-21 20:11:29.410000
+166	New Mexico State	15	Midwest	0	0	1	0	0	0	0	0	0	--	2015-03-21 20:11:29.410000
+275	Wisconsin	1	West	0	1	1	1	0.868972295068	0.600127475272	0.248979175661	0.110501172303	0.0666434192397	14.0052324957	2015-03-21 20:11:29.410000
+324	Coastal Carolina	16	West	0	0	1	0	0	0	0	0	0	--	2015-03-21 20:11:29.410000
+ stallion.n.01	equine.n.01
+saber-toothed_tiger.n.01	big_cat.n.01
+staffordshire_bullterrier.n.01	carnivore.n.01
+domestic_goat.n.01	placental.n.01
+banteng.n.01	bovid.n.01
+"," 			await registerTestFileSearchProvider({
++<<<<<<< .our
+ 				provideFileSearchResults(query: vscode.FileSearchQuery, options: vscode.FileSearchOptions, token: vscode.CancellationToken): Thenable<URI[]> {
++=======
++				provideFileSearchResults(query: vscode.FileSearchQuery, options: vscode.FileSearchOptions, progress: vscode.Progress<URI>, token: vscode.CancellationToken): Thenable<void> {
+ 127.0.0.1:4026
+127.0.0.1:4027
+127.0.0.1:4028
+127.0.0.1:4029
+127.0.0.1:4030
+ 4235
+4240
+4241
+4245
+4246
+ pkg syscall (netbsd-arm64-cgo), const ETHERTYPE_VEECO ideal-int
+pkg syscall (netbsd-arm64-cgo), const ETHERTYPE_VEXP = 32859
+pkg syscall (netbsd-arm64-cgo), const ETHERTYPE_VEXP ideal-int
+pkg syscall (netbsd-arm64-cgo), const ETHERTYPE_VGLAB = 33073
+pkg syscall (netbsd-arm64-cgo), const ETHERTYPE_VGLAB ideal-int
+ PASS result[0] is ""number""
+PASS result[1] is 320
+PASS result[0] is ""number""
+PASS result[1] is 321
+PASS result[0] is ""number""
+","# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the ""License""); you may not use this file except in compliance with
+             {{- end }}
+            {{- if .Values.etcdTlsSecretNamespace }}
+            - name: ETCD_TLS_SECRET_NAMESPACE
+              value: {{ .Values.etcdTlsSecretNamespace | quote }}
+            {{- end }}
+ etherStatsHighCapacityOverflowPkts65to127Octets: 1.3.6.1.2.1.16.1.7.1.7
+nlMatrixTopNHighCapacityDestAddress: 1.3.6.1.2.1.16.15.8.1.3
+matrixDSHighCapacityOctets: 1.3.6.1.2.1.16.6.6.1.4
+etherHistoryHighCapacityEntry: 1.3.6.1.2.1.16.2.6.1
+protocolDistStatsHighCapacityEntry: 1.3.6.1.2.1.16.12.3.1
+       xaxis: ""Day""
+      yaxis: ""Total requests""
+    time_to_first_response:
+      title: ""Time to first response""
+      xaxis: ""Day""
+                     ""current"": {
+                        ""selected"": true,
+                        ""tags"": [],
+                        ""text"": ""172.16.1.8:9153"",
+                        ""value"": ""172.16.1.8:9153""
 "
-      it ""does not bump the listing or subtract credits if the purchase does not go through"" do
-        previous_bumped_at = listing.bumped_at
-        allow(Credits::Buyer).to receive(:call).and_raise(ActiveRecord::Rollback)
-        expect do
-",14
-"    }
-
-    fn is_supported(ext: &WebGLExtensions) -> bool {
-        ext.supports_any_gl_extension(&[
-            ""GL_ANGLE_instanced_arrays"",
-",15
-"        match self.calls.pop_front() {
-            Some(Ok(data)) => {
-                debug_assert!(buf.remaining() >= data.len());
-                buf.put_slice(&data);
-                Ready(Ok(()))
-",15
-"            let b = unsafe {
-                &mut *(buf.unfilled_mut() as *mut [std::mem::MaybeUninit<u8>] as *mut [u8])
-            };
-
-            self.io.peek_from(b)
-",15
-"    unsafe fn ensure_data(&self) -> AtomicRefMut<ElementData> {
-        if !self.has_data() {
-            debug!(""Creating ElementData for {:?}"", self);
-            let ptr = Box::into_raw(Box::new(AtomicRefCell::new(ElementData::default())));
-            self.0.mServoData.set(ptr);
-",15
-"
-    static MAIN_ALTSTACK: AtomicPtr<libc::c_void> = AtomicPtr::new(ptr::null_mut());
-    static NEED_ALTSTACK: AtomicBool = AtomicBool::new(false);
-
-    pub unsafe fn init() {
-",15
-"test_command $FILE_MAC_CLI $KEYSET_FILE $DATA_FILE $EXPECTED_MAC_FILE
-
-if [[ $TEST_STATUS -ne 0 ]]; then
-  echo ""+++ Success: MAC verification reported non-match for incorrect MAC.""
-else
-",16
-"
-dir=$name.git $(( 1+2 ))
-dir3=$name.git$(( 1+2 ))
-
-cd -
-",16
-"	test_commit -C client c5 &&
-	git -C client checkout c4^^ &&
-	test_commit -C client c2side &&
-
-	git -C server checkout --orphan anotherbranch &&
-",16
-"netbsd_amd64)
-	mkerrors=""$mkerrors -m64""
-	mksyscall=""go run mksyscall.go -netbsd""
-	mksysnum=""go run mksysnum.go 'http://cvsweb.netbsd.org/bsdweb.cgi/~checkout~/src/sys/kern/syscalls.master'""
-	mktypes=""GOARCH=$GOARCH go tool cgo -godefs""
-",16
-"	      if test -n ""$hardcode_libdir_separator""; then
-		func_replace_sysroot ""$libdir""
-		libdir=$func_replace_sysroot_result
-		if test -z ""$hardcode_libdirs""; then
-		  hardcode_libdirs=""$libdir""
-",16
-"2011-03-07T00:00:00.000Z	upfront	mezzanine	preferred	mpreferred	1095.637520	value
-2011-03-07T00:00:00.000Z	upfront	premium	preferred	ppreferred	906.373797	value
-2011-03-08T00:00:00.000Z	spot	automotive	preferred	apreferred	109.764955
-2011-03-08T00:00:00.000Z	spot	business	preferred	bpreferred	98.972716
-2011-03-08T00:00:00.000Z	spot	entertainment	preferred	epreferred	143.214331
-",17
-"2018-11-04_00_Convicted	110	15	Edmund Zagorski	https://en.wikipedia.org/wiki/Edmund_Zagorski
-2018-11-04_00_Convicted	225	27	United States Supreme Court	https://en.wikipedia.org/wiki/Supreme_Court_of_the_United_States
-2018-11-04_00_Convicted	313	14	electric chair	https://en.wikipedia.org/wiki/electric_chair
-2018-11-04_00_Convicted	339	16	lethal injection	https://en.wikipedia.org/wiki/lethal_injection
-2018-11-04_00_Convicted	463	12	Daryl Holton	https://en.wikipedia.org/wiki/Daryl_Holton
-",17
-"v18.14.11-stable	2018-10-26
-v18.14.10-stable	2018-10-23
-v18.14.9-stable	2018-10-16
-v18.14.8-stable	2018-10-13
-v18.12.17-stable	2018-09-16
-",17
-"2014102812	product_5	AwEDAAAAAgABAAAAAAAAAP////////9/TqyltB+ASmU=
-2014102812	product_14	AwEDAAAAAgABAAAAAAAAAP////////9/l9m5EDihmD0=
-2014102812	product_8	AwEDAAAAAgABAAAAAAAAAP////////9/BnXke/a7yDI=
-2014102812	product_1	AwEDAAAAAgABAAAAAAAAAP////////9/C7HkJPudcg4=
-2014102812	product_5	AwEDAAAAAgABAAAAAAAAAP////////9/H8YZlbHE03g=
-",17
-"30089	.112
-30091	.043
-30093	.055
-30095	.052
-30097	.031
-",17
-"okiharak
-okilab
-oknshn
-okonobeev
-okpfl
-",18
-"Dewanda,F,6
-Dion,F,6
-Dodie,F,6
-Donnita,F,6
-Donzella,F,6
-",18
-"dagobert
-daharewa
-daharewa123
-Dahlan
-daho
-",18
-"Clarance,M,10
-Cornelious,M,10
-Dana,M,10
-Dow,M,10
-Duncan,M,10
-",18
-"Clemma,F,7
-Cloe,F,7
-Crystal,F,7
-Dallie,F,7
-Dee,F,7
-",18
-"  styles:
-    - solid
-    - regular
-  unicode: f1cd
-  voted: false
-",19
-"        semtech,cs0-ground;
-        semtech,combined-sensors = <1 2 3>;
-        semtech,resolution = ""fine"";
-        semtech,startup-sensor = <1>;
-        semtech,proxraw-strength = <2>;
-",19
-"matrix:
-  include:
-    - os: linux
-    - os: osx
-
-",19
-"    useSsl: false
-    authUsername: """"
-    authPassword: """"
-    subjectPrefix: ""[graylog]""
-    fromEmail: """"
-",19
-"name: pandas-dev
-channels:
-  - conda-forge
-dependencies:
-  - python=3.7.*
-",19
+0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19

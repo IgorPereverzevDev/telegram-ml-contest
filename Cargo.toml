@@ -9,9 +9,6 @@ edition = "2021"
 linfa = "0.6.1"
 linfa-bayes = "0.6.1"
 linfa-preprocessing = "0.6.1"
-polars = {version = "0.33.2", features=["lazy"]}
-polars-io = "0.33.2"
-polars-core = {version = "0.33.2", features = ["ndarray"]}
 ndarray = "0.15.6"
 ndarray-csv = "0.5.2"
 csv = "1.3.0"
