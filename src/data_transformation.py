@@ -53,10 +53,10 @@ if __name__ == '__main__':
     df['language'] = df['language'].replace(mapping_dict)
     df.index = df['language']
     df = df.drop(columns=['language'])
-    df_cp = df.groupby('language')['snippet'].apply(''.join).reset_index()[['snippet', 'language']].T
+    df_cp = df.groupby('language')['snippet'].apply(' '.join).reset_index()[['snippet', 'language']].T
     df_cp.to_csv('data/train_data_labeled.csv', index=False)
     df_5 = df.groupby(by=['language']).sample(5)
-    df_5 = df_5.groupby('language')['snippet'].apply(''.join).reset_index()[['snippet', 'language']].T
+    df_5 = df_5.groupby('language')['snippet'].apply(' '.join).reset_index()[['snippet', 'language']].T
     df_5.to_csv('data/train_data_5exp_labeled.csv', index=False)
     labels = pd.DataFrame(le.classes_).rename(columns={0: 'language'})
     labels.T.to_csv('data/labels.csv', index=False)
