@@ -16,7 +16,7 @@ More detailed information on the content may be found on Kaggle.
 
 # Solution
 
-The taks is solved with the combination of Naive Bayes with TF-IDF vectorizer. For sake of execution time the final version were written using Rust instead of Python.
+The taks is solved with the combination of Naive Bayes with TF-IDF vectorizer. For sake of execution time the final version were written using Rust instead of Python. Since TF-IDF matrix was too big to fit 16 GB RAM, code snippets were concatinated into onle line which decreaset model accuracy from 78% down to 66%. During our investigation we didn't face the same accuracy decrease using Python.
 
 ## Multinomial Naive Bayes
 
