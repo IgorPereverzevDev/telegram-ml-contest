@@ -7,12 +7,13 @@ The task is to classify programming language by the code snippet. Time of execut
 
 # Dataset
 
-The dataset contains code snippet taken from the private repos on Github. Languages presented there include not only the most spread but also rare ones.
+The dataset contains code snippets taken from the private and public repos from Github. Languages presented in it include not only the most spread but also rare ones, and usual speaking English language text examples as "OTHER" class.
 
+The final distribution of the code samples is presented here
 
-<img width="1107" alt="Screenshot 2023-10-13 at 20 52 13" src="https://github.com/IgorPereverzevDev/telegram-ml-contest/assets/72782370/1842ad35-6ba3-4b70-9bba-f9df561a4d5f">
+<img width="1107" alt="Screenshot2023-11-09at20.26.30" src="https://github.com/IgorPereverzevDev/telegram-ml-contest/blob/dataset-update/assets/Screenshot2023-11-09at20.26.30.png">
 
-More detailed information on the content may be found on Kaggle.
+The detailed  information about the process of data collection and preparation, as well as raw files, can be found on the  [dataset page on Kaggle](https://www.kaggle.com/datasets/olgaiv39/github-final-datasets).
 
 # Solution
 
